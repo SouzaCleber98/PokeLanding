@@ -1,0 +1,55 @@
+.sobre {
+  background-color: #fff;
+  padding: 60px 20px;
+  color: #333;
+
+
+}
+
+.sobre .container {
+  flex-direction: column
+}
+
+.sobre h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #e60012;
+  /* Vermelho Pokémon */
+}
+
+.sobre p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.sobre-conteudo {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 20px;
+  padding: 40px 0;
+}
+
+.sobre-conteudo ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/* Botão*/
+
+.btn-container {
+
+  text-align: center;
+  margin-top: 60px;
+}
+

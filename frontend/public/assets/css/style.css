@@ -1,0 +1,130 @@
+@import url("./components.css");
+@import url("./header.css");
+@import url("./banner.css");
+@import url("./sobre.css");
+@import url("./footer.css");
+@import url("./modal.css");
+@import url("./contato.css");
+@import url("./main.css");
+
+:root {
+  --type-normal: #A8A77A;
+  --type-fire: #f35a01;
+  --type-water: #6390F0;
+  --type-electric: #F7D02C;
+  --type-grass: #7AC74C;
+  --type-ice: #96D9D6;
+  --type-fighting: #d81e18;
+  --type-poison: #A33EA1;
+  --type-ground: #E2BF65;
+  --type-flying: #A98FF3;
+  --type-psychic: #F95587;
+  --type-bug: #A6B91A;
+  --type-rock: #B6A136;
+  --type-ghost: #735797;
+  --type-dragon: #5a1ef1;
+  --type-dark: #705746;
+  --type-steel: #afafb9;
+  --type-fairy: #D685AD;
+}
+
+
+
+/* Exemplo de estilos personalizados por tipo */
+.type-fire {
+  background-color: #f08030;
+}
+
+.type-water {
+  background-color: #004cff;
+}
+
+.type-grass {
+  background-color: #4fbd19;
+}
+
+.type-electric {
+  background-color: #fcff4a;
+}
+
+.type-psychic {
+  background-color: #f89eb9;
+}
+
+.type-ice {
+  background-color: #b1f8f8;
+}
+
+.type-dragon {
+  background-color: #7038f8;
+}
+
+.type-dark {
+  background-color: #705848;
+}
+
+.type-fairy {
+  background-color: #f17590;
+}
+
+.type-fighting {
+  background-color: #af1f18;
+}
+
+.type-poison {
+  background-color: #c205c2;
+}
+
+.type-ground {
+  background-color: #ffe395;
+}
+
+.type-flying {
+  background-color: #9a7cf3;
+}
+
+.type-bug {
+  background-color: #c3d426;
+}
+
+.type-rock {
+  background-color: #807132;
+}
+
+.type-ghost {
+  background-color: #624a8a;
+}
+
+.type-steel {
+  background-color: #b8b8d0;
+}
+
+.type-normal {
+  background-color: #bebe7e;
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0 auto;
+  font-size: clamp(16px, 2vw, 25px);
+}
