@@ -1,3 +1,5 @@
+import state from "./modal.js";
+
 // carousel-auto.js
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -16,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentIndex = (index + slides.length) % slides.length;
     const offset = slides[currentIndex].offsetLeft;
     viewport.scrollTo({ left: offset, behavior: "smooth" });
+    if (state.isOpen) return; // Evita o foco no input de pesquisa se o modal estiver aberto
     searchInput[currentIndex].focus({ preventScroll: true });
   };
 

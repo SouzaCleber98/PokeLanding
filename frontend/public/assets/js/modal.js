@@ -1,3 +1,5 @@
+const state = {isOpen: false};
+
 document.addEventListener("DOMContentLoaded", () => {
   const openModalBtns = document.querySelectorAll(".open-modal");
   const closeModalBtns = document.querySelectorAll(".modal .close");
@@ -8,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const targetId = btn.getAttribute("data-target");
       const modal = document.getElementById(targetId);
       if (modal) modal.style.display = "block";
+      state.isOpen = true;
     });
   });
 
@@ -15,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       const modal = btn.closest(".modal");
       modal.style.display = "none";
+      state.isOpen = false;
     });
   });
 
@@ -23,7 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
     modals.forEach((modal) => {
       if (event.target === modal) {
         modal.style.display = "none";
+        state.isOpen = false;
       }
     });
   });
 });
+
+export default state;
