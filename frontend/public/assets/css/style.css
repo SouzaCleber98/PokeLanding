@@ -6,6 +6,7 @@
 @import url("./modal.css");
 @import url("./contato.css");
 @import url("./main.css");
+@import url("./style2.css");
 
 :root {
   --type-normal: #A8A77A;
@@ -27,8 +28,6 @@
   --type-steel: #afafb9;
   --type-fairy: #D685AD;
 }
-
-
 
 /* Exemplo de estilos personalizados por tipo */
 .type-fire {
