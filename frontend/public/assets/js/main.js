@@ -207,7 +207,7 @@ function createPokemonCard(pokemon) {
   tryLoadImage(pokemon.sprites.other.showdown.back_default || pokemon.sprites.back_default)
     .then(url => backImg.src = url).catch(() => { });
   wrapper.addEventListener("click", () => {
-    window.open(`details.html?id=${pokemon.id}`, "_self");
+    window.open(`details?id=${pokemon.id}`, "_self");
   });
 
 }
