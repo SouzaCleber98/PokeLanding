@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault(); // Impede o envio padrão
       const searchValue = form.querySelector(".search-input").value.trim();
       if (searchValue !== "") {
-        window.location.href = `./pages/pokedex.html?search=${encodeURIComponent(searchValue)}`;
+        window.location.href = `/pokedex?search=${encodeURIComponent(searchValue)}`;
       }
     });
   });
