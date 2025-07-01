@@ -11,14 +11,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.querySelectorAll(".search-input");
   let currentIndex = 0;
   let autoScrollInterval;
-
   if (!slides.length || !viewport) return;
+
+  let isActive = false;
+  const checkFocusInput = () => {
+    isActive = false;
+    for (const input of searchInput) {
+      if (document.activeElement === input) {
+        isActive = true;
+        break;
+      }
+    }
+  };
 
   const scrollToSlide = (index) => {
     currentIndex = (index + slides.length) % slides.length;
     const offset = slides[currentIndex].offsetLeft;
     viewport.scrollTo({ left: offset, behavior: "smooth" });
-    if (state.isOpen) return; // Evita o foco no input de pesquisa se o modal estiver aberto
+    if (state.isOpen) return;
+    checkFocusInput();
+    if (!isActive) return;
     searchInput[currentIndex].focus({ preventScroll: true });
   };
 
@@ -70,21 +82,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   startAutoScroll();
 
-// Para evitar o auto-scroll quando o usuário digita no campo de pesquisa
-document.querySelector('.search-input')
-  .addEventListener('keydown', resetAutoScroll);
+  // Para evitar o auto-scroll quando o usuário digita no campo de pesquisa
+  document.querySelectorAll('.search-input')
+    .forEach(input => {
+      input.addEventListener('keydown', resetAutoScroll);
+    });
 
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  const inputs = document.querySelectorAll(".search-input"); // Seleciona todos os inputs de pesquisa
   const forms = document.querySelectorAll(".search-form"); // Seleciona todos os formulários de pesquisa
 
   // Sincroniza os valores entre todos os inputs
-  inputs.forEach((input) => {
+  searchInput.forEach((input) => {
     input.addEventListener("input", (e) => {
       const value = e.target.value;
-      inputs.forEach((otherInput) => {
+      searchInput.forEach((otherInput) => {
         if (otherInput !== e.target) {
           otherInput.value = value;
         }
@@ -98,10 +108,9 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault(); // Impede o envio padrão
       const searchValue = form.querySelector(".search-input").value.trim();
       if (searchValue !== "") {
-        window.location.href = `/pokedex?search=${encodeURIComponent(searchValue)}`;
+        window.location.href = `pokedex?search=${encodeURIComponent(searchValue)}`;
       }
     });
   });
+
 });
-
-
