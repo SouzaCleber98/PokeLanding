@@ -2,31 +2,39 @@
     <div class="container">
 
         <div class="logo">
-            <a href="#"><img src="/assets/img/logo.png" alt="Logo do Pokémon" width="40px" /></a>
+            <a href="/"><img src="/assets/img/logo.png" alt="Logo do Pokémon" width="40px" /></a>
         </div>
 
-        <div class="menu-toggle" id="menu-toggle">
-            &#9776;
-        </div>
+        <% if (showSearchbar) { %>
+            <div class="box">
+                <input id="searchbar" type="text" placeholder="Search" />
+            </div>
+            <% } %>
 
-        <nav class="menu" id="menu">
-            <ul>
-                <li id="btn-login"><a href="#" class="open-modal" data-target="modal-login">Login</a></li>
-                <li id="btn-cadastro"><a href="#" class="open-modal" data-target="modal-cadastro">Cadastro</a></li>
-                <li id="user-info"></li>
-                <li><a href="/pages/pokedex.html">Pokedex</a></li>
-            </ul>
-        </nav>
+                <div class="menu-toggle" id="menu-toggle">
+                    &#9776;
+                </div>
+
+                <nav class="menu" id="menu">
+                    <ul>
+                        <li id="btn-login"><a href="#" class="open-modal" data-target="modal-login">Login</a></li>
+                        <li id="btn-cadastro"><a href="#" class="open-modal" data-target="modal-cadastro">Cadastro</a>
+                        </li>
+                        <li id="user-info"></li>
+                        <li><a href="<%= link %>"><%= linkName %></a></li>
+
+                    </ul>
+                </nav>
 
     </div>
 
-    <section class="hero">
-
-        <div class="container">
-            <h1>Pokelanding</h1>
-            <p>Descubra o mundo Pokémon</p>
-        </div>
-
-    </section>
-
 </header>
+
+<section class="hero">
+
+    <div class="container">
+        <h1>Pokelanding</h1>
+        <p>Descubra o mundo Pokémon</p>
+    </div>
+
+</section>

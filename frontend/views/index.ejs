@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<!-- Head -->
+<%- include('partials/head') %>
+<!-- Fim do Head -->
+
+  <body>
+
+    <!-- Header -->
+    <%- include('partials/header') %>
+      <!-- Fim do Header -->
+
+      <!-- Banner -->
+      <!-- Banner Interativo com Caixa de Busca em Todos os Slides -->
+      <section class="carousel" aria-label="Gallery">
+
+        <ol class="carousel__viewport">
+          <li id="carousel__slide1" tabindex="0" class="carousel__slide">
+            <img src="./assets/img/pikachu.webp" alt="Foto pikachu" class="banner-img" />
+            <div class="carousel__snapper">
+              <div class="text-banner">
+                <h1>Encontre seu Pokémon favorito</h1>
+                <p>Busque por nome ou número na Pokédex</p>
+                <form class="search-form">
+                  <input type="text" class="search-input" placeholder="Digite o nome ou número..." />
+                  <button type="submit">Buscar</button>
+                </form>
+              </div>
+              <a href="#carousel__slide4" class="carousel__prev">‹</a>
+              <a href="#carousel__slide2" class="carousel__next">›</a>
+            </div>
+          </li>
+
+          <li id="carousel__slide2" tabindex="0" class="carousel__slide">
+            <img src="./assets/img/charmander.jpg" alt="Foto charmander" class="banner-img" />
+            <div class="carousel__snapper">
+              <div class="text-banner">
+                <h1>Encontre seu Pokémon favorito</h1>
+                <p>Busque por nome ou número na Pokédex</p>
+                <form class="search-form">
+                  <input type="text" class="search-input" placeholder="Digite o nome ou número..." />
+                  <button type="submit">Buscar</button>
+                </form>
+              </div>
+              <a href="#carousel__slide1" class="carousel__prev">‹</a>
+              <a href="#carousel__slide3" class="carousel__next">›</a>
+            </div>
+          </li>
+
+          <li id="carousel__slide3" tabindex="0" class="carousel__slide">
+            <img src="./assets/img/bulbasaur.jpg" alt="Foto bulbasaur" class="banner-img" />
+            <div class="carousel__snapper">
+              <div class="text-banner">
+                <h1>Encontre seu Pokémon favorito</h1>
+                <p>Busque por nome ou número na Pokédex</p>
+                <form class="search-form">
+                  <input type="text" class="search-input" placeholder="Digite o nome ou número..." />
+                  <button type="submit">Buscar</button>
+                </form>
+              </div>
+              <a href="#carousel__slide2" class="carousel__prev">‹</a>
+              <a href="#carousel__slide4" class="carousel__next">›</a>
+            </div>
+          </li>
+
+          <li id="carousel__slide4" tabindex="0" class="carousel__slide">
+            <img src="./assets/img/squirtle.png" alt="Foto squirtle" class="banner-img" />
+            <div class="carousel__snapper">
+              <div class="text-banner">
+                <h1>Encontre seu Pokémon favorito</h1>
+                <p>Busque por nome ou número na Pokédex</p>
+                <form class="search-form">
+                  <input type="text" class="search-input" placeholder="Digite o nome ou número..." />
+                  <button type="submit">Buscar</button>
+                </form>
+              </div>
+              <a href="#carousel__slide3" class="carousel__prev">‹</a>
+              <a href="#carousel__slide1" class="carousel__next">›</a>
+            </div>
+          </li>
+        </ol>
+
+        <aside class="carousel__navigation">
+          <ol class="carousel__navigation-list">
+            <li class="carousel__navigation-item">
+              <a href="#carousel__slide1" class="carousel__navigation-button">1</a>
+            </li>
+            <li class="carousel__navigation-item">
+              <a href="#carousel__slide2" class="carousel__navigation-button">2</a>
+            </li>
+            <li class="carousel__navigation-item">
+              <a href="#carousel__slide3" class="carousel__navigation-button">3</a>
+            </li>
+            <li class="carousel__navigation-item">
+              <a href="#carousel__slide4" class="carousel__navigation-button">4</a>
+            </li>
+          </ol>
+        </aside>
+      </section>
+
+      <!-- Fim do Banner -->
+
+      <!-- Sobre -->
+      <section id="sobre" class="sobre">
+        <div class="container">
+          <div class="sobre-conteudo">
+            <div class="descricao">
+              <h2>Sobre o Projeto</h2>
+              <p>
+                Esta é uma Pokédex interativa desenvolvida para os fãs de Pokémon! Aqui
+                você pode buscar por Pokémon, ver detalhes sobre eles, e explorar o universo Pokémon de forma fácil e
+                intuitiva.
+              </p>
+            </div>
+            <div class="detalhes">
+              <ul>
+                <li>🔍 Busca rápida por nome ou número do Pokémon.</li>
+                <li>📊 Detalhes completos sobre habilidades e estatísticas.</li>
+                <li>📱 Design responsivo para todos os dispositivos.</li>
+              </ul>
+              <div class="btn-container">
+                <a href="./pages/pokedex.html" class="btnyellow">Começar a Busca</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Fim do Sobre -->
+      <!--Contato-->
+      <section id="contato" class="contato">
+        <div class="container">
+          <h2>Contato</h2>
+          <p>Entre em contato conosco para mais informações!</p>
+          <form>
+            <div class="form-group">
+              <input type="text" placeholder="Nome" required />
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Email" required />
+            </div>
+            <div class="form-group">
+              <input type="text" class="cpf" maxlength="14" placeholder="CPF" required />
+              <small id="cpf-msg" class="mensagem"></small>
+            </div>
+            <div class="form-group">
+              <textarea placeholder="Mensagem" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn-enviar">Enviar</button>
+          </form>
+        </div>
+      </section>
+      <!-- Fim do Contato -->
+
+      <!-- Footer -->
+      <%- include('partials/footer') %>
+      <!-- Fim do Footer -->
+
+      <!-- Modals -->
+      <%- include('partials/modals') %>
+      <!-- Fim dos Modals -->
+
+      <!-- Scripts JS -->
+
+      <% if (scripts && scripts.length) { %>
+        <% scripts.forEach(script=> { %>
+          <script src="<%= script.src %>" <%=script.type ? ' type=' + script.type + '' : '' %>></script>
+        <% }) %>
+      <% } %>
+      <!--Fim Script-->
+  </body>
+
+</html>
