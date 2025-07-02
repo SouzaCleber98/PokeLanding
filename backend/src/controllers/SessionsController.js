@@ -1,14 +1,13 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
-
 class SessionsController {
     async create(req, res) {
         try {
             if (!req.body.email || !req.body.password) {
                 return res.status(400).json({ message: "Email and password are required" });
             }
-        
+
             const { email, password } = req.body;
 
             const data = await User.findOne({
@@ -23,7 +22,8 @@ class SessionsController {
             }
 
             const token = jwt.sign({
-                id: data.id
+                id: data.id,
+                email: data.email
             },
                 process.env.JWT_SECRET,
                 {

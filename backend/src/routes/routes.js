@@ -67,9 +67,9 @@ routes.post('/users', (users.create));
 
 routes.use(auth);
 
-routes.param('id', checkId);
+routes.get('/users/me', (users.show));
 
-routes.get('/users/:id', (users.show));
+routes.param('id', checkId);
 
 routes.put('/users/:id', (users.update));
 

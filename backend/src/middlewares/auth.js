@@ -11,7 +11,8 @@ export default (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.userId = decoded.id;
+        req.id = decoded.id;
+        req.email = decoded.email;
         next();
     } catch (error) {
         console.error("Authentication error:", error);

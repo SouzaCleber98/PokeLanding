@@ -3,14 +3,18 @@ import User from "../models/User.js";
 class UserController {
     async show(req, res) {
         try {
-            const { id } = req.params;
-            const data = await User.findByPk(id)
+            const {email} = req
+            const data = await User.findOne({ where: { email } });
 
             if (!data) {
                 return res.status(404).json({ message: "User not found" });
             }
 
-            res.status(200).json(data);
+            // Exclude password from the response
+            const user = data.toJSON();
+            delete user.password;
+            
+            res.status(200).json(user);
 
         } catch (error) {
             console.error("Error fetching user:", error);
