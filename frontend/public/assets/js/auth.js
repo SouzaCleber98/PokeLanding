@@ -5,9 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const cadastroForm = document.querySelector("#modal-cadastro form");
     const loginForm = document.querySelector("#modal-login form");
 
-    const getUsuarios = () => JSON.parse(localStorage.getItem("usuarios")) || [];
-    const salvarUsuarios = (usuarios) => localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
     function exibirMensagem(input, msgElement, tipo, mensagem) {
         input.classList.remove("erro", "sucesso");
         msgElement.classList.remove("erro", "sucesso");
@@ -17,54 +14,40 @@ document.addEventListener("DOMContentLoaded", () => {
         msgElement.textContent = mensagem;
     }
 
-    // Função exemplo para validar CPF — adapte se já tiver a sua
-    function validarCPF(cpf) {
-        // Exemplo simples só pra ilustrar: deve implementar a validação real
-        return cpf.length === 14; // formato "000.000.000-00"
-    }
 
-    const verificarEmail = () => {
-        const email = cadastroForm.querySelector("input[placeholder='Email']").value.trim();
-        const usuarios = getUsuarios();
+
+    cadastroForm.querySelector("input[placeholder='Email']").addEventListener("input", () => {
+        cadastroForm.querySelector("input[placeholder='Email']").classList.remove("erro", "sucesso");
         const emailMsg = document.getElementById("email-msg");
-        const emailJaExiste = usuarios.some(u => u.email === email);
-        if (emailJaExiste) {
-            exibirMensagem(cadastroForm.querySelector("input[placeholder='Email']"), emailMsg, "erro", "Este email já está cadastrado!");
-        } else {
-            exibirMensagem(cadastroForm.querySelector("input[placeholder='Email']"), emailMsg, "sucesso", "");
-        }
-    };
+        if (emailMsg) emailMsg.textContent = "";
+    });
 
-    const debounce = (func, delay) => {
-        let timeout;
-        return (...args) => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), delay);
-        };
-    };
+    // const debounce = (func, delay) => {
+    //     let timeout;
+    //     return (...args) => {
+    //         clearTimeout(timeout);
+    //         timeout = setTimeout(() => func.apply(this, args), delay);
+    //     };
+    // };
 
-    const emailInput = cadastroForm.querySelector("input[placeholder='Email']");
-    emailInput.addEventListener("input", debounce(verificarEmail, 600));
-
-    cadastroForm.addEventListener("submit", (e) => {
+    cadastroForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const nome = cadastroForm.querySelector("input[placeholder='Nome completo']").value.trim();
+        const emailInput = cadastroForm.querySelector("input[placeholder='Email']");
         const email = emailInput.value.trim();
-        const senha = cadastroForm.querySelector("input[placeholder='Senha']").value;
-        const cpf = cadastroForm.querySelector(".cpf").value.trim();
-        const usuarios = getUsuarios();
+        const password = cadastroForm.querySelector("input[placeholder='Senha']").value;
 
-        if (usuarios.some(u => u.email === email)) {
+        const response = await fetch("/users", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: nome, email, password })
+        });
+
+
+        if (response.status === 400) {
             return exibirMensagem(emailInput, document.getElementById("email-msg"), "erro", "Este email já está cadastrado!");
         }
-
-        if (!validarCPF(cpf)) {
-            return exibirMensagem(cadastroForm.querySelector(".cpf"), document.getElementById("cpf-msg"), "erro", "CPF inválido.");
-        }
-
-        usuarios.push({ nome, email, senha, cpf });
-        salvarUsuarios(usuarios);
 
         cadastroForm.reset();
         limparCamposFormulario(cadastroForm);
@@ -128,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const cadastroItem = document.getElementById("btn-cadastro");
         const userInfo = document.getElementById("user-info");
 
-        if (!localStorage.getItem("usuarioLogado")){
+        if (!localStorage.getItem("usuarioLogado")) {
             if (loginItem) loginItem.style.display = "list-item";
             if (cadastroItem) cadastroItem.style.display = "list-item";
             if (userInfo) userInfo.innerHTML = "";
