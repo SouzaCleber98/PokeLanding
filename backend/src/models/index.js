@@ -1,7 +1,9 @@
 import User from './User.js';
+import Contact from './Contact.js';
 
 const models = [
-  User
+  User,
+  Contact
 ]
 
 

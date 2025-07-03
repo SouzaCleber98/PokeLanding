@@ -5,13 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const contatoForm = document.querySelector("#contato form");
 
   if (contatoForm) {
-    contatoForm.addEventListener("submit", (e) => {
+    contatoForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const nome = contatoForm.querySelector("input[placeholder='Nome']").value.trim();
+      const username = contatoForm.querySelector("input[placeholder='Nome']").value.trim();
       const email = contatoForm.querySelector("input[placeholder='Email']").value.trim();
       const cpf = contatoForm.querySelector(".cpf").value.trim();
-      const mensagem = contatoForm.querySelector("textarea").value.trim();
+      const body = contatoForm.querySelector("textarea").value.trim();
       const cpfMsg = document.getElementById("cpf-msg");
       const cpfInput = contatoForm.querySelector("#cpf");
 
@@ -26,6 +26,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Sucesso
+      const response = await fetch("/contacts", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ username, email, cpf, body})
+      });
+
+      if (!response.ok){
+        mostrarToast("Erro ao enviar mensagem!");
+        return;
+      }
+
       contatoForm.reset();
       limparCamposFormulario(contatoForm);
       mostrarToast("Mensagem enviada com sucesso!");

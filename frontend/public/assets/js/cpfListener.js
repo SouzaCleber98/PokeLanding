@@ -18,6 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
       cpfInput.classList.remove("erro", "sucesso");
       cpfMsg.classList.remove("erro", "sucesso");
 
+      if (cpfInput.value === "") {
+        cpfInput.classList.remove("erro", "sucesso");
+        cpfMsg.textContent = "";
+        cpfMsg.classList.remove("erro", "sucesso");
+        return;
+      }
+
+
       if (!valido) {
         cpfInput.classList.add("erro");
         cpfMsg.textContent = "CPF inválido.";
