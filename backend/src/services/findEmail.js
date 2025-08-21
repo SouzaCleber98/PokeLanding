@@ -2,15 +2,15 @@ import User from "../models/User.js";
 
 export default async function findEmail(email) {
 
-        const data = await User.findOne({ where: { email } });
+        const getUserData = await User.findOne({ where: { email } });
 
-        if (!data) {
+        if (!getUserData) {
             return null
         }
 
-        const user = data.toJSON();
-        delete user.password;
-        return user;
+        const userDataJSON = getUserData.toJSON();
+        delete userDataJSON.password;
+        return userDataJSON;
 
 }
 
