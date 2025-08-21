@@ -14,12 +14,12 @@ export default function validarCPF(cpf) {
 
   // Validação do primeiro dígito verificador
 
-  resto = calcularDigitoVerificado(cpf, PRIMEIRO_DIGITO)
+  resto = calcularDigitoVerificador(cpf, PRIMEIRO_DIGITO)
   if (resto !== cpf[9]) return false;
 
   // Validação do segundo dígito verificador
 
-  resto = calcularDigitoVerificado(cpf, SEGUNDO_DIGITO);
+  resto = calcularDigitoVerificador(cpf, SEGUNDO_DIGITO);
   if (resto !== cpf[10]) return false;
 
   return true;
@@ -38,7 +38,7 @@ function verificarDigitos(cpf) { // Verifica se o CPF tem o tamanho correto e se
 
 }
 
-function calcularDigitoVerificado(cpf, tamanhoDigitos){
+function calcularDigitoVerificador(cpf, tamanhoDigitos){
 
   let soma = 0;
   for (let i = 0; i < tamanhoDigitos; i++) {
