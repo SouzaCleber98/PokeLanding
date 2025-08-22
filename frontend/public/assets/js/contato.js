@@ -11,14 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const username = contatoForm.querySelector("input[placeholder='Nome']").value.trim();
       const email = contatoForm.querySelector("input[placeholder='Email']").value.trim();
       const cpf = contatoForm.querySelector(".cpf").value.trim();
-      const body = contatoForm.querySelector("textarea").value.trim();
+      const messageText = contatoForm.querySelector("textarea").value.trim();
       const cpfMsg = document.getElementById("cpf-msg");
-      const cpfInput = contatoForm.querySelector("#cpf");
+      const cpfInput = contatoForm.querySelector(".cpf");
 
       // Limpa feedbacks anteriores com sua função
       limparCamposFormulario(contatoForm);
 
-      if (!validarCPF(cpf)) {
+      if (!validarCPF(cpf)) { 
+        console.error("CPF inválido.");
         cpfInput.classList.add("erro");
         cpfMsg.textContent = "CPF inválido.";
         cpfMsg.classList.add("erro");
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch("/contacts", {
         method: "POST",
         headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({ username, email, cpf, body})
+        body: JSON.stringify({ username, email, cpf, body: messageText})
       });
 
       if (!response.ok){

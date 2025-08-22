@@ -11,30 +11,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.querySelectorAll(".search-input");
   let currentIndex = 0;
   let autoScrollInterval;
+
   if (!slides.length || !viewport) return;
 
-  let isActive = false;
-  const checkFocusInput = () => {
-    isActive = false;
+  let isCarouselActive = false;
+  const isSearchInputFocused = () => {
+    isCarouselActive = false;
     for (const input of searchInput) {
       if (document.activeElement === input) {
-        isActive = true;
+        isCarouselActive = true;
         break;
       }
     }
   };
 
-  const scrollToSlide = (index) => {
+  const scrollToSlide = (index) => { // Função para rolar para o slide específico
     currentIndex = (index + slides.length) % slides.length;
     const offset = slides[currentIndex].offsetLeft;
     viewport.scrollTo({ left: offset, behavior: "smooth" });
-    if (state.isOpen) return;
-    checkFocusInput();
-    if (!isActive) return;
-    searchInput[currentIndex].focus({ preventScroll: true });
+    if (state.isModalVisible) return;
+    isSearchInputFocused();
+    if (!isCarouselActive) return;
+    searchInput[currentIndex].focus({ preventScroll: true }); // Foca no input do slide atual
   };
 
-  const getIndexFromHref = (href) => {
+  const getIndexFromHref = (href) => { // magia negra 
     const match = href.match(/carousel__slide(\d+)/);
     return match ? parseInt(match[1], 10) - 1 : 0;
   };
@@ -50,35 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
     startAutoScroll();
   };
 
-  nextLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const targetIndex = getIndexFromHref(link.getAttribute("href"));
-      scrollToSlide(targetIndex);
-      resetAutoScroll();
-    });
-  });
-
-  prevLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const targetIndex = getIndexFromHref(link.getAttribute("href"));
-      scrollToSlide(targetIndex);
-      resetAutoScroll();
-    });
-  });
-
-  navLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const targetIndex = getIndexFromHref(link.getAttribute("href"));
-      scrollToSlide(targetIndex);
-      resetAutoScroll();
-    });
-  });
+  addCarouselClick(nextLinks);
+  addCarouselClick(prevLinks);
+  addCarouselClick(navLinks);
 
   startAutoScroll();
 
@@ -114,3 +89,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+
+function addCarouselClick (links){ // Adiciona o evento de clique para os links de navegação
+  links.forEach((link) => { 
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const targetIndex = getIndexFromHref(link.getAttribute("href"));
+      scrollToSlide(targetIndex);
+      resetAutoScroll();
+    });
+  });
+}
+
+//não lembro como tudo funciona, magia talvez? (está funcionando como desejado, então fds)
