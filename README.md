@@ -22,7 +22,6 @@ To set up the project locally, follow these steps:
     ```bash
     git clone https://github.com/SouzaCleber98/PokeLanding.git
     ```
-2. Install dependencies:
 
 2. Go to the project directory:
 
@@ -37,6 +36,8 @@ To set up the project locally, follow these steps:
     ```
 
 ## Usage
+
+in the `pokeLanding\backend` directory, create or rename the `.env.example` file to `.env` and update the environment variables as needed.
 
 Start the development server in the `pokeLanding\backend` directory:
 ```bash
