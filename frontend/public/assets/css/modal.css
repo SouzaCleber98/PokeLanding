@@ -96,3 +96,9 @@ input.erro {
 input.sucesso {
   border: 1px solid green;
 }
+
+.user-content {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}

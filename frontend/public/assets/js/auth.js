@@ -144,7 +144,7 @@ function exibirMensagem(input, msgElement, tipo, mensagem) {
     msgElement.textContent = mensagem;
 }
 
-async function atualizarUI() {
+async function atualizarUI() { //lixo, função mal feita, separar melhor as responsabilidades
     const loginButton = document.getElementById("btn-login");
     const signupButton = document.getElementById("btn-cadastro");
     const userInfo = document.getElementById("user-info");
@@ -165,6 +165,7 @@ async function atualizarUI() {
     }
 
     const userDataJSON = await userData.json();
+    console.log(userDataJSON);
 
     if (loginButton) loginButton.style.display = "none";
     if (signupButton) signupButton.style.display = "none";
@@ -187,13 +188,14 @@ async function atualizarUI() {
     }
 }
 
-function generateUserInfo(userData, userInfo) {
+function generateUserInfo(userData, userInfo) { //função mal feita, separar melhor as responsabilidades
 
     console.log("fui executado");
 
     const userInfoTextArea = document.getElementById("user-info");
     const usernameLink = document.getElementById("username-link");
     const username = userData.username;
+    const email = userData.email;
     const modalUserInfo = document.getElementById("modal-userInfo");
     const modalUserInfoArea = modalUserInfo.querySelector(".modal-content");
     const modalUserTextArea = modalUserInfoArea.querySelector(".user-info-area");
@@ -219,7 +221,8 @@ function generateUserInfo(userData, userInfo) {
 
     const userInfoData = `
         <div class= "user-content">
-            <span>Nome: ${username}</span>
+            <p>Nome:  ${username}</p>
+            <p>Email: ${email}</p>
         </div>
      `;
     modalUserTextArea.insertAdjacentHTML('beforeend', userInfoData);
