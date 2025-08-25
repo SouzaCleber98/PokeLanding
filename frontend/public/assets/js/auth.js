@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => { // Quando o DOM estiver ca
 
     atualizarUI();
 
-});  
+});
 
 // funções
 
@@ -152,7 +152,7 @@ async function atualizarUI() {
     if (!localStorage.getItem("usuarioLogado")) {
         if (loginButton) loginButton.style.display = "list-item";
         if (signupButton) signupButton.style.display = "list-item";
-        if (userInfo) userInfo.innerHTML = "";
+        if (userInfo) userInfo.style.display = "none";
         return;
     }
     const userData = await getUserData();
@@ -160,20 +160,16 @@ async function atualizarUI() {
     if (userData.status !== 200) {
         if (loginButton) loginButton.style.display = "list-item";
         if (signupButton) signupButton.style.display = "list-item";
-        if (userInfo) userInfo.innerHTML = "";
+        if (userInfo) userInfo.style.display = "none";
         return;
     }
 
     const userDataJSON = await userData.json();
-    const userName = userDataJSON.username;
 
     if (loginButton) loginButton.style.display = "none";
     if (signupButton) signupButton.style.display = "none";
     if (userInfo) {
-        userInfo.innerHTML = `
-                    <span> ${userName}</span>
-                    <a href="#" id="btn-logout">Sair</a>
-                `;
+        generateUserInfo(userDataJSON, userInfo);
 
         const buttonLogout = document.getElementById("btn-logout");
         if (buttonLogout) {
@@ -187,6 +183,47 @@ async function atualizarUI() {
     } else {
         if (loginButton) loginButton.style.display = "list-item";
         if (signupButton) signupButton.style.display = "list-item";
-        if (userInfo) userInfo.innerHTML = "";
+        if (userInfo) userInfo.style.display = "none";
     }
 }
+
+function generateUserInfo(userData, userInfo) {
+
+    console.log("fui executado");
+
+    const userInfoTextArea = document.getElementById("user-info");
+    const usernameLink = document.getElementById("username-link");
+    const username = userData.username;
+    const modalUserInfo = document.getElementById("modal-userInfo");
+    const modalUserInfoArea = modalUserInfo.querySelector(".modal-content");
+    const modalUserTextArea = modalUserInfoArea.querySelector(".user-info-area");
+    const buttonLogout = document.getElementById("btn-logout");
+
+    usernameLink.textContent = `${username}`;
+
+    if (!buttonLogout) {
+        userInfo.insertAdjacentHTML('beforeend', `
+                    <a href="#" id="btn-logout">Sair</a>
+                `);
+    }
+
+    const divUserContent = modalUserTextArea.querySelector(".user-content");
+
+    userInfoTextArea.removeAttribute("style");
+
+    if (divUserContent) {
+
+        modalUserTextArea.innerHTML="";//TODO: isso devia acontecer quando clicar no logout, depois eu mexo nisso
+
+    }
+
+    const userInfoData = `
+        <div class= "user-content">
+            <span>Nome: ${username}</span>
+        </div>
+     `;
+    modalUserTextArea.insertAdjacentHTML('beforeend', userInfoData);
+
+}
+
+
