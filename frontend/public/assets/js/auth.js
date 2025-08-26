@@ -1,7 +1,7 @@
 import { limparCamposFormulario } from './function/clearForm.js';
 import { mostrarToast } from './function/toast.js';
 
-document.addEventListener("DOMContentLoaded", () => { // Quando o DOM estiver carregado
+document.addEventListener("DOMContentLoaded", () => {
 
     const cadastroForm = document.querySelector("#modal-cadastro form");
     const loginForm = document.querySelector("#modal-login form");
@@ -201,7 +201,9 @@ function generateUserInfo(userData, userInfo) { //função mal feita, separar me
     const modalUserTextArea = modalUserInfoArea.querySelector(".user-info-area");
     const buttonLogout = document.getElementById("btn-logout");
 
-    usernameLink.textContent = `${username}`;
+    if (usernameLink) {
+        usernameLink.textContent = `${username}`;
+    }
 
     if (!buttonLogout) {
         userInfo.insertAdjacentHTML('beforeend', `
@@ -215,7 +217,7 @@ function generateUserInfo(userData, userInfo) { //função mal feita, separar me
 
     if (divUserContent) {
 
-        modalUserTextArea.innerHTML="";//TODO: isso devia acontecer quando clicar no logout, depois eu mexo nisso
+        modalUserTextArea.innerHTML = "";//TODO: isso devia acontecer quando clicar no logout, depois eu mexo nisso
 
     }
 

@@ -9,7 +9,7 @@ export default async function findEmail(email) {
         }
 
         const userDataJSON = getUserData.toJSON();
-        delete userDataJSON.password;
+        delete userDataJSON.password;//tirar essa bosta daqui e colocar 
         return userDataJSON;
 
 }

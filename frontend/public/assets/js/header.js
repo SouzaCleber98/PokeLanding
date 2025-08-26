@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       loginBtn.style.display = "inline-block";
       cadastroBtn.style.display = "inline-block";
-      userInfo.innerHTML = "";
     }
   }
 
