@@ -11,7 +11,7 @@ export default (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.id = decoded.id;
+        req.userId = decoded.id;
         req.email = decoded.email;
         next();
     } catch (error) {

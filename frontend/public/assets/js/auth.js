@@ -1,5 +1,7 @@
 import { limparCamposFormulario } from './function/clearForm.js';
 import { mostrarToast } from './function/toast.js';
+import { signupPostData, loginAction, getUserData } from './function/userCRUD.js';
+import { fecharModal } from './modal.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -92,49 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // funções
 
-async function getUserData() {
-
-    const userData = await fetch("/users/me", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("usuarioLogado")
-        },
-    });
-
-    return userData;
-
-}
-
-async function signupPostData(username, email, password) {
-
-    const serverResponse = await fetch("/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: username, email, password })
-    });
-
-    return serverResponse
-
-}
-
-async function loginAction(email, password) {
-
-    const serverResponse = await fetch("/sessions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-    });
-
-    return serverResponse
-
-}
-
-function fecharModal(id) {
-    const modal = document.getElementById(id);
-    if (modal) modal.style.display = "none";
-}
-
 function exibirMensagem(input, msgElement, tipo, mensagem) {
     input.classList.remove("erro", "sucesso");
     msgElement.classList.remove("erro", "sucesso");
@@ -144,7 +103,7 @@ function exibirMensagem(input, msgElement, tipo, mensagem) {
     msgElement.textContent = mensagem;
 }
 
-async function atualizarUI() { //lixo, função mal feita, separar melhor as responsabilidades
+export async function atualizarUI() { //lixo, função mal feita, separar melhor as responsabilidades
     const loginButton = document.getElementById("btn-login");
     const signupButton = document.getElementById("btn-cadastro");
     const userInfo = document.getElementById("user-info");

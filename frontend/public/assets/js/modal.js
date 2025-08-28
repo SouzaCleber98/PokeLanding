@@ -1,4 +1,4 @@
-const state = {isModalVisible: false};
+const state = { isModalVisible: false };
 
 document.addEventListener("DOMContentLoaded", () => {
   const openModalBtns = document.querySelectorAll(".open-modal");
@@ -32,5 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+export function fecharModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.style.display = "none";
+}
 
 export default state;

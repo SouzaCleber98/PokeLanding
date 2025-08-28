@@ -20,7 +20,8 @@ routes.get('/', (req, res) => {
             { src: '/assets/js/cpfListener.js' },
             { src: '/assets/js/auth.js', type: 'module' },
             { src: '/assets/js/carousel-auto.js', type: 'module' },
-            { src: '/assets/js/contato.js', type: 'module' }
+            { src: '/assets/js/contato.js', type: 'module' },
+            { src: '/assets/js/main.js', type: 'module' }
         ]
     });
 });
@@ -39,7 +40,8 @@ routes.get('/pokedex', (req, res) => {
             { src: '/assets/js/cpfListener.js' },
             { src: '/assets/js/auth.js', type: 'module' },
             { src: '/assets/js/contato.js', type: 'module' },
-            { src: '/assets/js/main.js' }
+            { src: '/assets/js/pokeSearchLogic.js' },
+            { src: '/assets/js/main.js', type: 'module' }
         ]
     });
 });
@@ -57,7 +59,7 @@ routes.get('/details', (req, res) => {
             { src: '/assets/js/cpfListener.js' },
             { src: '/assets/js/auth.js', type: 'module' },
             { src: '/assets/js/contato.js', type: 'module' },
-            { src: '/assets/js/main.js' }
+            { src: '/assets/js/pokeSearchLogic.js' }
         ]
     });
 });
