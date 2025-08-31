@@ -39,6 +39,22 @@ class SessionsController {
             res.status(500).json({ message: "Internal server error" });
         }
     }
+
+    static updateUserToken(user) {
+
+        const token = jwt.sign({
+            id: user.id,
+            email: user.email
+        },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: '7d'
+            });
+
+        return token;
+
+    }
 }
 
 export default new SessionsController();
+export const { updateUserToken } = SessionsController;

@@ -37,7 +37,7 @@ class UserInfoButtons {
                 if (!serverStatus.ok) {
 
                     throw new Error("Erro ao deletar usuário: " + serverStatus.statusText);
-                    
+
                 }
 
                 mostrarToast("Usuário deletado com sucesso!");
@@ -55,17 +55,16 @@ class UserInfoButtons {
     }
 
     /**
-     * Handles the user info update workflow in the modal.
-     * Sets up event listeners for the update and return buttons,
-     * and manages the user info edit form submission.
-     * On form submission, validates input, confirms with the user,
-     * sends updated data to the server, and updates the UI accordingly.
+     * Handles the user update functionality within the user info modal.
+     * Sets up event listeners for updating user data, returning to the info view, and submitting the edit form.
+     * On form submission, validates input, confirms action, sends updated data to the server,
+     * updates local storage if necessary, resets the form, closes the modal, and refreshes the UI.
      * Displays error messages via toast notifications if any step fails.
      *
      * @function
      * @throws {Error} If there is an error updating the user data.
      */
-
+    
     updateUserClick() {
 
         try {
@@ -88,6 +87,9 @@ class UserInfoButtons {
 
                 showUserInfoArea(userInfoButtons, userDataEdit, userInfoArea);
 
+                editUserForm.reset();
+                return;
+
             });
 
             editUserForm.addEventListener("submit", async (e) => {
@@ -109,15 +111,26 @@ class UserInfoButtons {
                 if (!confirm("Tem certeza que deseja atualizar os seus dados?")) return;
 
                 const serverResponse = await updateUserData(newUserData);
+                const serverResponseJSON = await serverResponse.json();
 
                 if (!serverResponse.ok) {
-                    
-                    const serverMessage = (await serverResponse.json()).message;
+
+                    const serverMessage = serverResponseJSON.message;
                     throw new Error("Erro ao atualizar usuário: " + serverMessage);
 
                 }
 
+                let token;
+                if (userEmail || userPassword) {
+
+                    token = serverResponseJSON.token;
+                    localStorage.setItem("usuarioLogado", token);
+
+                }
+
+                editUserForm.reset();
                 fecharModal("modal-userInfo");
+                mostrarToast("Usuário atualizado com sucesso!");
                 await atualizarUI();
                 showUserInfoArea(userInfoButtons, userDataEdit, userInfoArea);
 
@@ -144,11 +157,11 @@ export default new UserInfoButtons;
  * @param {HTMLElement} userInfoArea - The container for displaying user info.
  */
 
-function showUserInfoArea(userInfoButtons, userDataEdit, userInfoArea) { 
+function showUserInfoArea(userInfoButtons, userDataEdit, userInfoArea) {
 
-    userInfoButtons.style.display = "block";
+    userInfoButtons.style.display = "flex";
     userDataEdit.style.display = "none";
-    userInfoArea.style.display = "block";
+    userInfoArea.style.display = "flex";
 
 }
 

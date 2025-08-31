@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import findEmail from "../services/findEmail.js";
+import { updateUserToken } from "./SessionsController.js";
 
 class UserController {
 
@@ -69,13 +70,23 @@ class UserController {
             }
 
             if (username) user.username = username;
-            if (email) user.email = email;
-            if (password) user.password = password;
+            if (email || password) {
+
+                if (email) user.email = email;
+                if (password) user.password = password;
+                req.wasChangedPasswordOrEmail = true; // Flag to indicate email or password change
+
+            }
+
             user.updated_At = new Date();
 
             await user.save();
 
-            res.status(200).json({ message: "User updated successfully" });
+            const newUserToken = updateUserToken(user)
+            res.status(200).json({
+                message: "User updated successfully",
+                token: newUserToken
+            });
 
         } catch (error) {
             console.error("Error updating user:", error);

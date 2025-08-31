@@ -38,7 +38,6 @@ async function loginAction(email, password) {
 
 async function deleteUserData() {
 
-    try {
         const userData = await getUserData();
         const userDataJSON = await userData.json();
         const id = userDataJSON.id;
@@ -51,16 +50,9 @@ async function deleteUserData() {
             },
         });
 
-        if (!serverResponse.ok) {
-            throw new Error("Erro ao deletar usuário: " + serverResponse.status);
-        }
-
         localStorage.removeItem("usuarioLogado");
-        console.log("Usuário deletado com sucesso!");
-
-    } catch (error) {
-        console.error("Falha ao deletar:", error);
-    }
+        return serverResponse;
+    
 }
 
 async function updateUserData(editUserData) {
