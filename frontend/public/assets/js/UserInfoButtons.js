@@ -21,6 +21,7 @@ class UserInfoButtons {
      *
      * @throws {Error} If there is an error during the user deletion process.
      */
+
     deleteUserClick() {
 
         try {
@@ -110,14 +111,14 @@ class UserInfoButtons {
                 const serverResponse = await updateUserData(newUserData);
 
                 if (!serverResponse.ok) {
-
-                    throw new Error("Erro ao atualizar usuário: " + serverResponse.statusText);
+                    
+                    const serverMessage = (await serverResponse.json()).message;
+                    throw new Error("Erro ao atualizar usuário: " + serverMessage);
 
                 }
 
                 fecharModal("modal-userInfo");
                 await atualizarUI();
-
                 showUserInfoArea(userInfoButtons, userDataEdit, userInfoArea);
 
             });
