@@ -36,8 +36,20 @@
     <span class="close" id="fecharModal">&times;</span>
     <div class="user-info-area">
     </div>
-    <button id="update">editar usuário</button>
-    <button id="delete">excluir usuário</button>
+    <div class="user-info-buttons">
+      <button id="update">editar usuário</button>
+      <button id="delete">excluir usuário</button>
+    </div>
+    <div class="edit-user" style="display: none;">
+      <h2>Editar Usuário</h2>
+      <form>
+        <input type="text" placeholder="Novo Nome" />
+        <input type="email" placeholder="Novo Email" />
+        <input type="password" placeholder="Nova Senha" />
+        <button type="submit">confirmar</button>
+        <button id="return">voltar</button>
+      </form>
+    </div>
   </div>
 </div>
 

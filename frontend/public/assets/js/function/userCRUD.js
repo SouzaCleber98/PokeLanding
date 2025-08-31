@@ -37,7 +37,7 @@ async function loginAction(email, password) {
 }
 
 async function deleteUserData() {
-    
+
     try {
         const userData = await getUserData();
         const userDataJSON = await userData.json();
@@ -63,4 +63,26 @@ async function deleteUserData() {
     }
 }
 
-export { getUserData, signupPostData, loginAction, deleteUserData };
+async function updateUserData(editUserData) {
+
+    const userData = await getUserData();
+    const userDataJSON = await userData.json();
+    const id = userDataJSON.id;
+    const username = editUserData.username;
+    const email = editUserData.email;
+    const password = editUserData.password;
+
+    const serverResponse = await fetch('/users/' + id, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("usuarioLogado")
+        },
+        body: JSON.stringify({ username: username, email, password })
+    });
+
+    return serverResponse;
+
+}
+
+export { getUserData, signupPostData, loginAction, deleteUserData, updateUserData };
