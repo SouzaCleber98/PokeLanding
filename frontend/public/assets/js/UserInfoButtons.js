@@ -64,7 +64,7 @@ class UserInfoButtons {
      * @function
      * @throws {Error} If there is an error updating the user data.
      */
-    
+
     updateUserClick() {
 
         try {
@@ -94,46 +94,54 @@ class UserInfoButtons {
 
             editUserForm.addEventListener("submit", async (e) => {
 
-                e.preventDefault();
-                const userName = editUserForm.querySelector("input[placeholder='Novo Nome']").value.trim();
-                const emailInput = editUserForm.querySelector("input[placeholder='Novo Email']");
-                const userEmail = emailInput.value.trim();
-                const userPassword = editUserForm.querySelector("input[placeholder='Nova Senha']").value;
+                try {
 
-                const newUserData = {
-                    username: userName,
-                    email: userEmail,
-                    password: userPassword
-                };
+                    e.preventDefault();
+                    const userName = editUserForm.querySelector("input[placeholder='Novo Nome']").value.trim();
+                    const emailInput = editUserForm.querySelector("input[placeholder='Novo Email']");
+                    const userEmail = emailInput.value.trim();
+                    const userPassword = editUserForm.querySelector("input[placeholder='Nova Senha']").value;
 
-                if (!userName && !userEmail && !userPassword) return;
+                    const newUserData = {
+                        username: userName,
+                        email: userEmail,
+                        password: userPassword
+                    };
 
-                if (!confirm("Tem certeza que deseja atualizar os seus dados?")) return;
+                    if (!userName && !userEmail && !userPassword) return;
 
-                const serverResponse = await updateUserData(newUserData);
-                const serverResponseJSON = await serverResponse.json();
+                    if (!confirm("Tem certeza que deseja atualizar os seus dados?")) return;
 
-                if (!serverResponse.ok) {
+                    const serverResponse = await updateUserData(newUserData);
+                    const serverResponseJSON = await serverResponse.json();
 
-                    const serverMessage = serverResponseJSON.message;
-                    throw new Error("Erro ao atualizar usuário: " + serverMessage);
+                    if (!serverResponse.ok) {
+
+                        const serverMessage = serverResponseJSON.message;
+                        throw new Error("Erro ao atualizar usuário: " + serverMessage);
+
+                    }
+
+                    let token;
+                    if (userEmail || userPassword) {
+
+                        token = serverResponseJSON.token;
+                        localStorage.setItem("usuarioLogado", token);
+
+                    }
+
+                    editUserForm.reset();
+                    fecharModal("modal-userInfo");
+                    mostrarToast("Usuário atualizado com sucesso!");
+                    await atualizarUI();
+                    showUserInfoArea(userInfoButtons, userDataEdit, userInfoArea);
+
+                } catch (error) {
+
+                    console.error(error);
+                    mostrarToast("Erro ao atualizar usuário");
 
                 }
-
-                let token;
-                if (userEmail || userPassword) {
-
-                    token = serverResponseJSON.token;
-                    localStorage.setItem("usuarioLogado", token);
-
-                }
-
-                editUserForm.reset();
-                fecharModal("modal-userInfo");
-                mostrarToast("Usuário atualizado com sucesso!");
-                await atualizarUI();
-                showUserInfoArea(userInfoButtons, userDataEdit, userInfoArea);
-
             });
 
 
