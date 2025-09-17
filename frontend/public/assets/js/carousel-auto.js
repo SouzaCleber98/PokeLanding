@@ -88,18 +88,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-});
-
-function addCarouselClick (links){ // Adiciona o evento de clique para os links de navegação
-  links.forEach((link) => { 
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const targetIndex = getIndexFromHref(link.getAttribute("href"));
-      scrollToSlide(targetIndex);
-      resetAutoScroll();
+  function addCarouselClick(links) { // Adiciona o evento de clique para os links de navegação
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const targetIndex = getIndexFromHref(link.getAttribute("href"));
+        scrollToSlide(targetIndex);
+        resetAutoScroll();
+      });
     });
-  });
-}
+  }
+
+});
 
 //não lembro como tudo funciona, magia talvez? (está funcionando como desejado, então fds)
