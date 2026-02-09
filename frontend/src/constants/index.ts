@@ -14,3 +14,25 @@ export const navigationLinks = [
     label: 'Cadastro',
   },
 ];
+
+export const carouselImages = [
+  {
+    src: '/images/pokemon/bulbasaur.png',
+    label: 'Bulbasaur',
+  },
+
+  {
+    src: '/images/pokemon/squirtle.png',
+    label: 'Squirtle',
+  },
+
+  {
+    src: '/images/pokemon/charmander.png',
+    label: 'Charmander',
+  },
+
+  {
+    src: '/images/pokemon/pikachu.png',
+    label: 'Pikachu',
+  },
+];
