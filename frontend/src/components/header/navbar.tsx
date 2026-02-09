@@ -52,7 +52,7 @@ export default function Navbar() {
       <div
         className={cn(
           'flex relative',
-          isMobileMenuOpen && 'flex-col w-full absolute right-0 top-15'
+          isMobileMenuOpen && 'flex-col w-full absolute right-0 top-20'
         )}
       >
         <ul
