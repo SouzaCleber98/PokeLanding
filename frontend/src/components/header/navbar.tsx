@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
@@ -21,12 +23,25 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    const navigationMenu = document.getElementById('nav-menu');
+    const handleClick = (e: Event) => {
+      if (!navigationMenu?.contains(e.target as Node))
+        setIsMobileMenuOpen(false);
+    };
+
+    window.addEventListener('click', handleClick);
+
+    return () => window.removeEventListener('click', handleClick);
+  }, []);
+
   return (
-    <nav className='flex items-center'>
+    <nav className='flex items-center' id='nav-menu'>
       <Button
         variant='ghost'
         className='sm:hidden'
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        id='mobile-menu'
       >
         <FontAwesomeIcon
           className='text-2xl'
