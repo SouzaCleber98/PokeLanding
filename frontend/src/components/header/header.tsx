@@ -6,7 +6,7 @@ import Navbar from './navbar';
 
 export default function Header() {
   return (
-    <header className='flex sticky justify-between p-3 md:px-10 bg-yellow-400 shadow-sm border-b-2 border-b-amber-400 z-1'>
+    <header className='flex sticky justify-between p-3 md:px-10 bg-yellow-300 shadow-sm border-b-2 border-b-yellow-400 z-1'>
       <Link className='flex gap-2 items-center' href='/'>
         <Image
           src='/images/logo.png'
