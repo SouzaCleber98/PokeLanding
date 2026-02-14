@@ -4,9 +4,9 @@ import SearchInput from './search-input';
 export default function SearchSection() {
   return (
     <section className='relative overflow-hidden py-12 px-4 bg-red-600'>
-      <div className='pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5'>
+      <div className='pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-10'>
         <Image
-          src='/images/pokeball.png'
+          src='/images/icons/default/pokeball.svg'
           alt='pokeball'
           width={400}
           height={400}
