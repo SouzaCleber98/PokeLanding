@@ -1,18 +1,31 @@
-import { getPokemonByNameOrId } from '@/lib/api/poke-api/api';
+'use client';
 
+import { getPokemonByNameOrId } from '@/lib/api/poke-api/api';
 import FlipCardProvider from './context/flip-card-provider';
 import PokemonFlipCard from './pokemon-flip-card';
+import { useEffect, useState } from 'react';
+import { PokemonEntity } from '@/lib/api/poke-api/types';
 
 type PokemonCardContainerProp = {
   pokemonName: string;
 };
 
-export default async function PokemonCardContainer({
+export default function PokemonCardContainer({
   pokemonName,
 }: PokemonCardContainerProp) {
-  const pokemonData = await getPokemonByNameOrId(pokemonName);
+  const [pokemonData, setPokemonData] = useState<PokemonEntity>();
 
-  pokemonData.types[0].type;
+  useEffect(() => {
+    const fetchData = async () => {
+      setPokemonData(await getPokemonByNameOrId(pokemonName));
+    };
+    fetchData();
+  }, []);
+
+  if (!pokemonData) {
+    return <div>Carregando...</div>;
+  }
+
   return (
     <FlipCardProvider pokemonData={pokemonData}>
       <PokemonFlipCard />
