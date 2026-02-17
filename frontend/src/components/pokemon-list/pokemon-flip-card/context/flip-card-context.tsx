@@ -3,7 +3,7 @@
 import { PokemonEntity } from '@/lib/api/poke-api/types';
 import { createContext } from 'react';
 
-type FlipCardContextType = {
+export type FlipCardContextType = {
   pokemonData: PokemonEntity;
   gradientsColor: React.CSSProperties;
   isFlipped: boolean;
