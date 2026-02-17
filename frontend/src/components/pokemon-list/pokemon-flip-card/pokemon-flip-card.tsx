@@ -36,13 +36,22 @@ export default function PokemonFlipCard() {
           <CardDescription className='text-white/70 text-xs sm:text-sm font-bold tracking-wider'>
             #{String(pokemonData.id).padStart(4, '0')}
           </CardDescription>
+
           <CardTitle className='text-white text-sm md:text-lg capitalize font-bold drop-shadow-md'>
             {pokemonData.name}
           </CardTitle>
         </CardHeader>
       )}
 
-      <div className='w-full h-20 absolute top-1/4 drop-shadow-lg'>
+      <div className='flex justify-center items-center w-full h-30 absolute top-1/5 drop-shadow-lg'>
+        <Image
+          src='/images/icons/default/pokeball.svg'
+          alt='pokeball'
+          fill
+          aria-hidden
+          className='pointer-events-none  left-1/5 -top-1/4 opacity-10 animate-[spin_6s_linear_infinite]'
+        />
+
         <Image
           src={cn(
             !isFlipped
@@ -51,7 +60,8 @@ export default function PokemonFlipCard() {
           )}
           alt={pokemonData.name}
           className='z-10 object-contain drop-shadow-md'
-          fill
+          width={60}
+          height={20}
         />
       </div>
 
@@ -67,6 +77,7 @@ export default function PokemonFlipCard() {
       </CardAction>
 
       <FrontCard />
+
       <BackCard />
     </Card>
   );
