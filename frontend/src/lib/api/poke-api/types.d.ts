@@ -257,3 +257,15 @@ export type TypeName =
   | 'fairy'
   | 'stellar'
   | 'unknown';
+
+export type Generation =
+  | 'all'
+  | 'generation-i'
+  | 'generation-ii'
+  | 'generation-iii'
+  | 'generation-iv'
+  | 'generation-v'
+  | 'generation-vi'
+  | 'generation-vii'
+  | 'generation-viii'
+  | 'generation-ix';
