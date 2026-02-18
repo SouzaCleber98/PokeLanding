@@ -3,26 +3,28 @@
 import { useEffect, useState } from 'react';
 import Pagination from '../ui/pagination/pagination';
 import PokemonCardContainer from './pokemon-flip-card/pokemon-card-container';
-import { getPokemonList } from '@/lib/api/poke-api/api';
 import { PokeApiListResponse } from '@/lib/api/poke-api/types';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type pokemonListProps = {
-  searchParams: Promise<{
-    search?: string;
-  }>;
+  pokemonData: PokeApiListResponse;
+  limit: number;
 };
 
-const limit = 5;
+export default function PokemonList({ pokemonData, limit }: pokemonListProps) {
+  const router = useRouter();
+  const pathname = usePathname();
 
-export default function PokemonList() {
-  const [pokemonList, setPokemonList] = useState<PokeApiListResponse>();
+  const [pokemonList, setPokemonList] =
+    useState<PokeApiListResponse>(pokemonData);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setPokemonList(await getPokemonList(limit, (currentPage - 1) * limit));
-    };
-    fetchData();
+    setPokemonList(pokemonData);
+  }, [pokemonData]);
+
+  useEffect(() => {
+    router.push(`${pathname}?currentPage=${currentPage}`);
   }, [currentPage]);
 
   if (!pokemonList) {
@@ -38,7 +40,7 @@ export default function PokemonList() {
       </div>
 
       <Pagination
-        items={40}
+        items={12}
         itemsPerPageLimit={limit}
         currentPage={currentPage}
         onPageChange={setCurrentPage}
