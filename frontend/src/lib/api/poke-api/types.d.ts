@@ -5,14 +5,14 @@
  * The `results` field contains an array of Pokemon names and their corresponding URLs for more details.
  */
 
-export type PokeApiListResponse = {
+export type PokeApiResponse = {
   count: number;
   next: string;
   previous: any;
-  results: PokemonNameList[];
+  results: NamedApiResource[];
 };
 
-export type PokemonNameList = {
+export type NamedApiResource = {
   name: string;
   url: string;
 };
@@ -39,11 +39,6 @@ export type PokemonEntity = {
 };
 
 // ─── Pokemon Sub-types ───────────────────────────────────────────────
-
-export type NamedApiResource = {
-  name: string;
-  url: string;
-};
 
 export type PokemonAbility = {
   ability: NamedApiResource | null;
