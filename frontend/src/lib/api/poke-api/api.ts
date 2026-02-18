@@ -30,7 +30,7 @@ export async function getPokemonByNameOrId(
 
   if (!response.ok) {
     throw new Error(
-      `Failed to fetch pokemon list: status: ${response.status}, statusText: ${response.statusText}`
+      `Failed to fetch pokemon details: status: ${response.status}, statusText: ${response.statusText}`
     );
   }
 
