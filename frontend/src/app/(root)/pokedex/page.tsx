@@ -1,4 +1,4 @@
-import PokemonList from '@/components/pokemon-list/pokemon-list';
+import PokemonList from '@/components/pokemon/pokemon-list/pokemon-list';
 import { POKEMONSBYGENERATION } from '@/constants';
 import { getGenerationList, getPokemonList } from '@/lib/api/poke-api/api';
 import {

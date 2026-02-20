@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext } from 'react';
-import { CardContent } from '../../ui/card';
+import { CardContent } from '../../../ui/card';
 import FlipCardContext from './context/flip-card-context';
 import { cn } from '@/lib/utils';
 

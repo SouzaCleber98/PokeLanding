@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Pagination from '../ui/pagination/pagination';
+import Pagination from '../../ui/pagination/pagination';
 import PokemonCardContainer from './pokemon-flip-card/pokemon-card-container';
 import { Generation, NamedApiResource } from '@/lib/api/poke-api/types';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import FilterPanel from '../ui/filter-panel';
+import FilterPanel from '../../ui/filter-panel';
 import { POKEMONSBYGENERATION } from '@/constants';
 
 type PokemonListProps = {
