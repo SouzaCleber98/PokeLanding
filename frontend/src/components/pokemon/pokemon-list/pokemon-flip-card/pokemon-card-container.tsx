@@ -1,7 +1,7 @@
 'use client';
 
 import { getPokemonByNameOrId } from '@/lib/api/poke-api/api';
-import FlipCardProvider from '../../../../context/pokemon-flip-card-context/flip-card-provider';
+import PokemonDataProvider from '../../../../context/pokemon-data-context/pokemon-data-provider';
 import PokemonFlipCard from './pokemon-flip-card';
 import { useEffect, useState } from 'react';
 import { PokemonEntity } from '@/lib/api/poke-api/types';
@@ -27,8 +27,8 @@ export default function PokemonCardContainer({
   }
 
   return (
-    <FlipCardProvider pokemonData={pokemonData}>
+    <PokemonDataProvider pokemonData={pokemonData}>
       <PokemonFlipCard />
-    </FlipCardProvider>
+    </PokemonDataProvider>
   );
 }
