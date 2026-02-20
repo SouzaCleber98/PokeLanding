@@ -3,18 +3,14 @@
 import { useEffect, useState } from 'react';
 import Pagination from '../ui/pagination/pagination';
 import PokemonCardContainer from './pokemon-flip-card/pokemon-card-container';
-import {
-  Generation,
-  NamedApiResource,
-  PokeApiResponse,
-} from '@/lib/api/poke-api/types';
+import { Generation, NamedApiResource } from '@/lib/api/poke-api/types';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import FilterPanel from '../ui/filter-panel';
 import { POKEMONSBYGENERATION } from '@/constants';
 
 type PokemonListProps = {
   pokemonData: NamedApiResource[];
-  generationList: PokeApiResponse;
+  generationList: NamedApiResource[];
   limit: number;
 };
 
@@ -56,7 +52,7 @@ export default function PokemonList({
     router.push(`${pathname}?${path.join('&')}`);
   }, [currentPage, generation]);
 
-  if (!pokemonList) {
+  if (!pokemonList || !generationList) {
     return <div>Carregando...</div>;
   }
 
