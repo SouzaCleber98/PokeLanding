@@ -1,7 +1,7 @@
 'use client';
 
 import { getPokemonByNameOrId } from '@/lib/api/poke-api/api';
-import FlipCardProvider from './context/flip-card-provider';
+import FlipCardProvider from '../../../../context/pokemon-flip-card-context/flip-card-provider';
 import PokemonFlipCard from './pokemon-flip-card';
 import { useEffect, useState } from 'react';
 import { PokemonEntity } from '@/lib/api/poke-api/types';

@@ -4,7 +4,7 @@ import { CardContent } from '../../../ui/card';
 
 import TypeIcon from '../../../ui/type-icon';
 import { useContext } from 'react';
-import FlipCardContext from './context/flip-card-context';
+import FlipCardContext from '../../../../context/pokemon-flip-card-context/flip-card-context';
 import { cn } from '@/lib/utils';
 import { POKEMON_TYPES_CONSTANTS } from '@/constants/type.constants';
 

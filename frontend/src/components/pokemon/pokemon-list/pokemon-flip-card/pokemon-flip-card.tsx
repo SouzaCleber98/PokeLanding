@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext } from 'react';
-import FlipCardContext from './context/flip-card-context';
+import FlipCardContext from '../../../../context/pokemon-flip-card-context/flip-card-context';
 import FrontCard from './front-card';
 import BackCard from './back-card';
 import { cn } from '@/lib/utils';
@@ -32,7 +32,7 @@ export default function PokemonFlipCard() {
       )}
       style={gradientsColor}
     >
-      <Link href={`pokedex/${pokemonData.id}`}>
+      <Link href={`pokedex/${pokemonData.id}/overview`}>
         {!isFlipped && (
           <CardHeader className='px-2 sm:px-3 gap-0'>
             <CardDescription className='text-white/70 text-xs sm:text-sm font-bold tracking-wider'>
