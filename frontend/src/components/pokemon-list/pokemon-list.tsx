@@ -9,7 +9,7 @@ import {
   PokeApiResponse,
 } from '@/lib/api/poke-api/types';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import FilterPanel from '../ui/filter-panel/filter-panel';
+import FilterPanel from '../ui/filter-panel';
 import { POKEMONSBYGENERATION } from '@/constants';
 
 type PokemonListProps = {
