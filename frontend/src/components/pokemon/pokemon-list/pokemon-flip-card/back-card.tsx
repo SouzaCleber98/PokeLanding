@@ -2,11 +2,15 @@
 
 import { useContext } from 'react';
 import { CardContent } from '../../../ui/card';
-import FlipCardContext from '../../../../context/pokemon-flip-card-context/flip-card-context';
+import PokemonDataContext from '../../../../context/pokemon-data-context/pokemon-data-context';
 import { cn } from '@/lib/utils';
 
-export default function BackCard() {
-  const { pokemonData, isFlipped } = useContext(FlipCardContext)!;
+type BackCardProps = {
+  isFlipped: boolean;
+};
+
+export default function BackCard({ isFlipped }: BackCardProps) {
+  const { pokemonData } = useContext(PokemonDataContext)!;
 
   const stats = [
     { label: 'Altura', value: `${(pokemonData.height / 10).toFixed(1)} m` },

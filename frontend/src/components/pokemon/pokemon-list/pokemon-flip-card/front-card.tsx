@@ -4,12 +4,16 @@ import { CardContent } from '../../../ui/card';
 
 import TypeIcon from '../../../ui/type-icon';
 import { useContext } from 'react';
-import FlipCardContext from '../../../../context/pokemon-flip-card-context/flip-card-context';
+import PokemonDataContext from '../../../../context/pokemon-data-context/pokemon-data-context';
 import { cn } from '@/lib/utils';
 import { POKEMON_TYPES_CONSTANTS } from '@/constants/type.constants';
 
-export default function FrontCard({}) {
-  const { pokemonData, isFlipped } = useContext(FlipCardContext)!;
+type FrontCardProps = {
+  isFlipped: boolean;
+};
+
+export default function FrontCard({ isFlipped }: FrontCardProps) {
+  const { pokemonData } = useContext(PokemonDataContext)!;
 
   return (
     <div
