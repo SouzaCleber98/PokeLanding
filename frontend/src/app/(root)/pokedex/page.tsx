@@ -11,30 +11,40 @@ type PokedexPageProps = {
   searchParams: Promise<{
     search: string;
     generation: Generation;
-    currentPage: number;
+    currentPage: string;
   }>;
 };
 
 const limit = 5;
 
 export default async function PokedexPage({ searchParams }: PokedexPageProps) {
-  const { currentPage = 1, generation = 'all' } = await searchParams;
+  const { currentPage = '1', generation = 'all' } = await searchParams;
 
-  let pokemonList: NamedApiResource[];
+  let page = Number(currentPage);
+  let pokemonList: NamedApiResource[] = [];
+  let generationList: NamedApiResource[] = [];
 
-  const generationList = await getGenerationList();
+  try {
+    if (!Number.isFinite(page) || page <= 0) {
+      page = 1;
+    }
 
-  if (generation && generation !== 'all') {
-    const data = await getPokemonList(
-      limit,
-      POKEMONSBYGENERATION[generation].start + (currentPage - 1) * limit,
-      generation
-    );
+    generationList = (await getGenerationList()).results;
 
-    pokemonList = data.results;
-  } else {
-    const data = await getPokemonList(limit, (currentPage - 1) * limit);
-    pokemonList = data.results;
+    if (generation && generation !== 'all') {
+      const data = await getPokemonList(
+        limit,
+        POKEMONSBYGENERATION[generation].start + (page - 1) * limit,
+        generation
+      );
+
+      pokemonList = data.results;
+    } else {
+      const data = await getPokemonList(limit, (page - 1) * limit);
+      pokemonList = data.results;
+    }
+  } catch (e) {
+    console.error(e);
   }
 
   return (
