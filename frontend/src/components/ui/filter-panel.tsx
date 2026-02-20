@@ -1,11 +1,11 @@
 'use client';
 
-import { Generation, PokeApiResponse } from '@/lib/api/poke-api/types';
+import { Generation, NamedApiResource } from '@/lib/api/poke-api/types';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
 
 type FilterPanelProps = {
-  generationList: PokeApiResponse;
+  generationList: NamedApiResource[];
   generation: string;
   setGeneration: (value: Generation) => void;
 };
@@ -38,7 +38,7 @@ export default function FilterPanel({
         All
       </Button>
 
-      {generationList?.results.map(({ name }) => (
+      {generationList?.map(({ name }) => (
         <Button
           key={name}
           size='sm'
