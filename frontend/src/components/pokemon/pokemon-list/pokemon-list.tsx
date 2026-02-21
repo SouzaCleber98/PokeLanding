@@ -25,21 +25,24 @@ export default function PokemonList({
 
   const [pokemonList, setPokemonList] =
     useState<NamedApiResource[]>(pokemonData);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    Number(searchParams.get('currentPage')) || 1
+  );
   const [generation, setGeneration] = useState<Generation>(
     (searchParams.get('generation') || 'all') as Generation
   );
+  const urlGeneration = searchParams.get('generation') || 'all';
 
   useEffect(() => {
     setPokemonList(pokemonData);
   }, [pokemonData]);
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [generation]);
-
-  useEffect(() => {
     const path: string[] = [];
+
+    if (generation !== urlGeneration) {
+      setCurrentPage(1);
+    }
 
     if (generation) {
       path.push(`generation=${generation}`);
