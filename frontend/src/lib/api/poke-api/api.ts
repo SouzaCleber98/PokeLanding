@@ -1,7 +1,11 @@
 import { POKEMONSBYGENERATION } from '@/constants';
-import { PokeApiResponse, PokemonEntity } from './types';
+import { PokeApiResponse, PokemonEntity, SpeciesInformation } from './types';
 
 const POKE_API_BASE_URL = 'https://pokeapi.co/api/v2';
+
+const CACHE_CONFIG = {
+  next: { revalidate: 86400 },
+};
 
 // ─── Fetch Pokemon List ───────────────────────────────────────────────
 export async function getPokemonList(
@@ -17,9 +21,8 @@ export async function getPokemonList(
 
   const response = await fetch(
     `${POKE_API_BASE_URL}/pokemon/?limit=${limit}&offset=${offset}`,
-    {
-      next: { revalidate: 60 * 60 },
-    }
+
+    CACHE_CONFIG
   );
 
   if (!response.ok) {
@@ -36,7 +39,9 @@ export async function getPokemonByNameOrId(
   pokemonIdOrName: string | number
 ): Promise<PokemonEntity> {
   const response = await fetch(
-    `${POKE_API_BASE_URL}/pokemon/${pokemonIdOrName}`
+    `${POKE_API_BASE_URL}/pokemon/${pokemonIdOrName}`,
+
+    CACHE_CONFIG
   );
 
   if (!response.ok) {
@@ -49,11 +54,33 @@ export async function getPokemonByNameOrId(
 }
 
 export async function getGenerationList(): Promise<PokeApiResponse> {
-  const response = await fetch(`${POKE_API_BASE_URL}/generation`);
+  const response = await fetch(
+    `${POKE_API_BASE_URL}/generation`,
+
+    CACHE_CONFIG
+  );
 
   if (!response.ok) {
     throw new Error(
       `Failed to fetch generation list: status: ${response.status}, statusText: ${response.statusText}`
+    );
+  }
+
+  return response.json();
+}
+
+export async function getPokemonSpeciesByNameOrId(
+  pokemonIdOrName: string | number
+): Promise<SpeciesInformation> {
+  const response = await fetch(
+    `${POKE_API_BASE_URL}/pokemon-species/${pokemonIdOrName}`,
+
+    CACHE_CONFIG
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch pokemon species details: status: ${response.status}, statusText: ${response.statusText}`
     );
   }
 
