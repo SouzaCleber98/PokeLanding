@@ -226,6 +226,48 @@ type DreamWorld = {
   front_female: string | null;
 };
 
+export type SpeciesInformation = {
+  base_happiness: number;
+  capture_rate: number;
+  color: NamedApiResource;
+  egg_groups: NamedApiResource[];
+  evolution_chain: EvolutionChain;
+  evolves_from_species: null;
+  flavor_text_entries: FlavorTextEntry[];
+  form_descriptions: any[];
+  forms_switchable: boolean;
+  gender_rate: number;
+  generation: NamedApiResource;
+  growth_rate: NamedApiResource;
+  habitat: NamedApiResource;
+  has_gender_differences: boolean;
+  hatch_counter: number;
+  id: number;
+  name: string;
+  names: Name[];
+  genera: Genus[];
+};
+
+export type EvolutionChain = {
+  url: string;
+};
+
+export type Genus = {
+  genus: string;
+  language: Color;
+};
+
+export type FlavorTextEntry = {
+  flavor_text: string;
+  language: NamedApiResource;
+  version: NamedApiResource;
+};
+
+export type Name = {
+  language: NamedApiResource;
+  name: string;
+};
+
 // ─── Stat & Type Literals ────────────────────────────────────────────
 
 export type StatName =
