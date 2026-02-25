@@ -254,7 +254,7 @@ export type EvolutionChain = {
 
 export type Genus = {
   genus: string;
-  language: Color;
+  language: NamedApiResource;
 };
 
 export type FlavorTextEntry = {
