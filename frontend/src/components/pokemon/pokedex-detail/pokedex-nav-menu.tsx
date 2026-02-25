@@ -22,14 +22,14 @@ export default function PokedexNavMenu({ id }: { id: number }) {
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
-            <div key={item.label} className=''>
-              <Link href={item.href} className='flex-1'>
+            <div key={item.label}>
+              <Link href={item.href}>
                 <Button
                   variant={isActive ? 'default' : 'ghost'}
                   className={cn(
                     'rounded-full text-xs',
                     isActive
-                      ? 'bg-white text-gray-800 hover:bg-white'
+                      ? 'bg-white text-gray-800 hover:bg-white/95'
                       : 'text-white/80 hover:text-white hover:bg-white/15'
                   )}
                 >
