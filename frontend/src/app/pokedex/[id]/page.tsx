@@ -31,15 +31,23 @@ export default async function PokemonDetailPage({
     { label: 'Peso', value: `${(pokemonData.weight / 10).toFixed(1)} kg` },
   ];
 
+  const englishGenusName = speciesInfo.genera.find(
+    (item) => item.language.name === 'en'
+  );
+
+  const englishPokemonDescription = speciesInfo.flavor_text_entries.find(
+    (item) => item.language.name === 'en'
+  );
+
   return (
     <section className='flex flex-col justify-center items-center'>
       <div className='h-fit w-fit p-4 flex flex-col text-center bg-white/15 rounded-4xl gap-y-4 items-center'>
         <h2 className='w-fit p-2 font-bold bg-white rounded-full '>
-          {speciesInfo.genera[7].genus}
+          {englishGenusName?.genus}
         </h2>
 
         <p className='text-sm text-white'>
-          {speciesInfo.flavor_text_entries[0].flavor_text
+          {englishPokemonDescription?.flavor_text
             .replace(/\f/g, ' ')
             .replace(/\n/g, ' ')}
         </p>
@@ -61,16 +69,16 @@ export default async function PokemonDetailPage({
 
       <div className='flex flex-col gap-2  items-center bg-white/15 p-3 rounded-4xl'>
         <h3 className='text-xs font-bold uppercase text-white/60'>abilities</h3>
-        <div className='flex gap-3 flex-col sm:flex-row'>
+        <div className='w-fit flex px-6 justify-evenly gap-5 flex-col sm:flex-row'>
           {pokemonData.abilities.map((ability) => (
             <div
               key={ability.ability?.name}
               className={cn(
-                'text-center bg-white/10 rounded-full p-3 capitalize',
+                'flex flex-col justify-center flex-1 text-center bg-white/10 rounded-full px-6 py-2 capitalize',
                 ability.is_hidden && 'bg-yellow-200/50'
               )}
             >
-              <p className=' font-bold text-white'>{ability.ability?.name}</p>
+              <p className='font-bold text-white'>{ability.ability?.name}</p>
               {ability.is_hidden && (
                 <span className='text-xs font-bold p-1 rounded-full text-yellow-300'>
                   Hidden Ability
