@@ -268,6 +268,25 @@ export type Name = {
   name: string;
 };
 
+export type Type = {
+  damage_relations: DamageRelations;
+  pokemon: TypePokemon[];
+};
+
+export type DamageRelations = {
+  double_damage_from: NamedApiResource[];
+  double_damage_to: NamedApiResource[];
+  half_damage_from: NamedApiResource[];
+  half_damage_to: NamedApiResource[];
+  no_damage_from: NamedApiResource[];
+  no_damage_to: NamedApiResource[];
+};
+
+export type TypePokemon = {
+  pokemon: NamedApiResource;
+  slot: number;
+};
+
 // ─── Stat & Type Literals ────────────────────────────────────────────
 
 export type StatName =
