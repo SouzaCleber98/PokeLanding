@@ -1,4 +1,4 @@
-import { POKEMON_TYPES_CONSTANTS } from '@/constants/type.constants';
+import { POKEMON_TYPES_CONSTANTS } from '@/constants';
 import Image from 'next/image';
 
 import { cn } from '@/lib/utils';

@@ -6,7 +6,7 @@ import PokemonDataContext, {
 } from './pokemon-data-context';
 import { PokemonEntity } from '@/lib/api/poke-api/types';
 import generateGradient from '@/utils/generate-gradients';
-import { POKEMON_TYPES_CONSTANTS } from '@/constants/type.constants';
+import { POKEMON_TYPES_CONSTANTS } from '@/constants';
 
 type PokemonDataProviderProps = {
   pokemonData: PokemonEntity;
