@@ -9,10 +9,11 @@ type StatBarProps = {
 };
 
 const getBarColor = (value: number) => {
-  if (value <= 30) return 'bg-red-600';
-  if (value <= 60) return 'bg-orange-600';
-  if (value <= 80) return 'bg-yellow-300';
-  if (value <= 120) return 'bg-green-300';
+  if (value < 30) return 'bg-red-600';
+  if (value < 60) return 'bg-orange-600';
+  if (value < 90) return 'bg-yellow-300';
+  if (value < 120) return 'bg-green-300';
+  if (value < 140) return 'bg-green-600';
   return 'bg-green-800';
 };
 
