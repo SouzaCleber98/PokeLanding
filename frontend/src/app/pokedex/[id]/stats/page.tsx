@@ -51,50 +51,56 @@ export default async function PokemonStatsPage({
       <div className='flex flex-col gap-2 bg-white/15 px-2 py-4 rounded-4xl my-6 '>
         <h3 className='font-bold text-white capitalize'>type Matchup</h3>
 
-        <div>
-          <h4 className='text-xs font-bold uppercase text-white/60 mt-4 mb-3'>
-            weaknesses:
-          </h4>
-          <div className='flex flex-col sm:flex-row justify-center items-center flex-wrap gap-4'>
-            {weaknesses.map((type) => (
-              <TypeMatchup
-                key={type.typeName}
-                multiplier={type.multiplier}
-                type={type.typeName as TypeName}
-              />
-            ))}
+        {weaknesses.length > 0 && (
+          <div>
+            <h4 className='text-xs font-bold uppercase text-white/60 mt-4 mb-3'>
+              weaknesses:
+            </h4>
+            <div className='flex flex-col sm:flex-row justify-center items-center flex-wrap gap-4'>
+              {weaknesses.map((type) => (
+                <TypeMatchup
+                  key={type.typeName}
+                  multiplier={type.multiplier}
+                  type={type.typeName as TypeName}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        <div>
-          <h4 className='text-xs font-bold uppercase text-white/60 mt-4 mb-3'>
-            resistances:
-          </h4>
-          <div className='flex flex-col sm:flex-row justify-center items-center flex-wrap gap-2'>
-            {resistances.map((type) => (
-              <TypeMatchup
-                key={type.typeName}
-                multiplier={type.multiplier}
-                type={type.typeName as TypeName}
-              />
-            ))}
+        {resistances.length > 0 && (
+          <div>
+            <h4 className='text-xs font-bold uppercase text-white/60 mt-4 mb-3'>
+              resistances:
+            </h4>
+            <div className='flex flex-col sm:flex-row justify-center items-center flex-wrap gap-2'>
+              {resistances.map((type) => (
+                <TypeMatchup
+                  key={type.typeName}
+                  multiplier={type.multiplier}
+                  type={type.typeName as TypeName}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        <div>
-          <h4 className='text-xs font-bold uppercase text-white/60 mt-4 mb-3'>
-            immunities:
-          </h4>
-          <div className='flex flex-col sm:flex-row justify-center items-center flex-wrap gap-2'>
-            {immunities.map((type) => (
-              <TypeMatchup
-                key={type.typeName}
-                multiplier={type.multiplier}
-                type={type.typeName as TypeName}
-              />
-            ))}
+        {immunities.length > 0 && (
+          <div>
+            <h4 className='text-xs font-bold uppercase text-white/60 mt-4 mb-3'>
+              immunities:
+            </h4>
+            <div className='flex flex-col sm:flex-row justify-center items-center flex-wrap gap-2'>
+              {immunities.map((type) => (
+                <TypeMatchup
+                  key={type.typeName}
+                  multiplier={type.multiplier}
+                  type={type.typeName as TypeName}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
