@@ -72,18 +72,22 @@ const adjustDamageMatchups = (
   resistances: TypeEffectiveness[],
   immunities: TypeEffectiveness[]
 ) => {
-  const overlappingMatchups: TypeEffectiveness[] = [];
+  let overlappingMatchups: TypeEffectiveness[] = [];
 
-  const remainingWeaknesses = [...weaknesses];
-  const remainingResistances = [...resistances];
+  let remainingWeaknesses = [...weaknesses];
+  let remainingResistances = [...resistances];
 
   for (let i = 0; i < weaknesses.length; i++) {
-    for (let j = 1; j < resistances.length; j++) {
+    for (let j = 0; j < resistances.length; j++) {
       if (resistances[j].typeName === weaknesses[i].typeName) {
         const adjustedMultiplier =
           weaknesses[i].multiplier * resistances[j].multiplier;
-        remainingWeaknesses.splice(i, 1);
-        remainingResistances.splice(j, 1);
+        remainingWeaknesses = remainingWeaknesses.filter(
+          (item) => item.typeName !== weaknesses[i].typeName
+        );
+        remainingResistances = remainingResistances.filter(
+          (item) => item.typeName !== resistances[j].typeName
+        );
         overlappingMatchups.push({
           typeName: weaknesses[i].typeName,
           multiplier: adjustedMultiplier,
@@ -92,13 +96,22 @@ const adjustDamageMatchups = (
     }
   }
 
-  const remainingImmunities = [...immunities];
+  overlappingMatchups = [
+    ...overlappingMatchups,
+    ...remainingWeaknesses,
+    ...remainingResistances,
+  ];
+
+  let remainingImmunities = [...immunities];
   for (let i = 0; i < immunities.length; i++) {
     for (let j = 0; j < overlappingMatchups.length; j++) {
       if (overlappingMatchups[j].typeName === immunities[i].typeName) {
         const adjustedMultiplier =
           immunities[i].multiplier * overlappingMatchups[j].multiplier;
-        remainingImmunities.splice(i, 1);
+        remainingImmunities = remainingImmunities.filter(
+          (item) => item.typeName !== immunities[i].typeName
+        );
+
         overlappingMatchups[j] = {
           typeName: overlappingMatchups[j].typeName,
           multiplier: adjustedMultiplier,
@@ -107,12 +120,7 @@ const adjustDamageMatchups = (
     }
   }
 
-  const allMatchups = [
-    ...overlappingMatchups,
-    ...remainingWeaknesses,
-    ...remainingResistances,
-    ...remainingImmunities,
-  ];
+  const allMatchups = [...overlappingMatchups, ...remainingImmunities];
 
   return allMatchups.filter((matchup) => matchup.multiplier !== 1);
 };
