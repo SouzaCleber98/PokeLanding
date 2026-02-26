@@ -1,5 +1,11 @@
 import { POKEMONSBYGENERATION } from '@/constants';
-import { PokeApiResponse, PokemonEntity, SpeciesInformation } from './types';
+import {
+  PokeApiResponse,
+  PokemonEntity,
+  SpeciesInformation,
+  Type,
+  TypeName,
+} from './types';
 
 const POKE_API_BASE_URL = 'https://pokeapi.co/api/v2';
 
@@ -53,6 +59,7 @@ export async function getPokemonByNameOrId(
   return response.json();
 }
 
+// ─── Fetch Generation List ───────────────────────────────────────────────
 export async function getGenerationList(): Promise<PokeApiResponse> {
   const response = await fetch(
     `${POKE_API_BASE_URL}/generation`,
@@ -69,6 +76,7 @@ export async function getGenerationList(): Promise<PokeApiResponse> {
   return response.json();
 }
 
+// ─── Fetch Pokemon Species by Name or ID ───────────────────────────────────────────────
 export async function getPokemonSpeciesByNameOrId(
   pokemonIdOrName: string | number
 ): Promise<SpeciesInformation> {
@@ -81,6 +89,21 @@ export async function getPokemonSpeciesByNameOrId(
   if (!response.ok) {
     throw new Error(
       `Failed to fetch pokemon species details: status: ${response.status}, statusText: ${response.statusText}`
+    );
+  }
+
+  return response.json();
+}
+
+export async function getTypeRelation(type: TypeName | number): Promise<Type> {
+  const response = await fetch(
+    `${POKE_API_BASE_URL}/type/${type}`,
+    CACHE_CONFIG
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch type relation details: status: ${response.status}, statusText: ${response.statusText}`
     );
   }
 
