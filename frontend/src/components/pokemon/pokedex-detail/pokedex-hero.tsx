@@ -4,7 +4,7 @@ import {
   Name,
   PokemonEntity,
   SpeciesInformation,
-} from '@/lib/api/poke-api/types';
+} from '@/lib/api/poke-api/types/types';
 import Image from 'next/image';
 
 type PokedexHeroProps = {

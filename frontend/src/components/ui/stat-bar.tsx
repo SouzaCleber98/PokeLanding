@@ -1,5 +1,5 @@
 import { STAT_NAMES } from '@/constants';
-import { StatName } from '@/lib/api/poke-api/types';
+import { StatName } from '@/lib/api/poke-api/types/types';
 import { cn } from '@/lib/utils';
 
 type StatBarProps = {

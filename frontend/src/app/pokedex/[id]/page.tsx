@@ -2,7 +2,10 @@ import {
   getPokemonByNameOrId,
   getPokemonSpeciesByNameOrId,
 } from '@/lib/api/poke-api/api';
-import { PokemonEntity, SpeciesInformation } from '@/lib/api/poke-api/types';
+import {
+  PokemonEntity,
+  SpeciesInformation,
+} from '@/lib/api/poke-api/types/types';
 import { cn } from '@/lib/utils';
 
 export default async function PokemonDetailPage({
@@ -17,7 +20,9 @@ export default async function PokemonDetailPage({
 
   try {
     pokemonData = await getPokemonByNameOrId(id);
-    speciesInfo = await getPokemonSpeciesByNameOrId(id);
+    speciesInfo = await getPokemonSpeciesByNameOrId(
+      pokemonData?.species.name ?? id
+    );
   } catch (e) {
     console.error(e);
   }

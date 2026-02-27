@@ -1,6 +1,6 @@
 'use client';
 
-import { Generation, NamedApiResource } from '@/lib/api/poke-api/types';
+import { Generation, NamedApiResource } from '@/lib/api/poke-api/types/types';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
 

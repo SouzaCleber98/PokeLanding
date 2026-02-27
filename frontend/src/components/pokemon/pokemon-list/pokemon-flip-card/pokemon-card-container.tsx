@@ -4,7 +4,7 @@ import { getPokemonByNameOrId } from '@/lib/api/poke-api/api';
 import PokemonDataProvider from '../../../../context/pokemon-data-context/pokemon-data-provider';
 import PokemonFlipCard from './pokemon-flip-card';
 import { useEffect, useState } from 'react';
-import { PokemonEntity } from '@/lib/api/poke-api/types';
+import { PokemonEntity } from '@/lib/api/poke-api/types/types';
 
 type PokemonCardContainerProp = {
   pokemonName: string;

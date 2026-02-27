@@ -8,7 +8,10 @@ import {
   getPokemonByNameOrId,
   getPokemonSpeciesByNameOrId,
 } from '@/lib/api/poke-api/api';
-import { PokemonEntity, SpeciesInformation } from '@/lib/api/poke-api/types';
+import {
+  PokemonEntity,
+  SpeciesInformation,
+} from '@/lib/api/poke-api/types/types';
 
 type PokedexLayoutProps = {
   children: React.ReactNode;

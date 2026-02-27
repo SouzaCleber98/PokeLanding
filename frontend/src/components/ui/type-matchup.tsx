@@ -1,4 +1,4 @@
-import { TypeName } from '@/lib/api/poke-api/types';
+import { TypeName } from '@/lib/api/poke-api/types/types';
 import TypeIcon from './type-icon';
 import { cn } from '@/lib/utils';
 

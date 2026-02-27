@@ -1,4 +1,8 @@
-import type { Generation, StatName, TypeName } from '@/lib/api/poke-api/types';
+import type {
+  Generation,
+  StatName,
+  TypeName,
+} from '@/lib/api/poke-api/types/types';
 
 export const navigationLinks = [
   {

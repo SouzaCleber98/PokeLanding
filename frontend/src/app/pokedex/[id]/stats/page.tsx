@@ -1,7 +1,7 @@
 import StatBar from '@/components/ui/stat-bar';
 import TypeMatchup from '@/components/ui/type-matchup';
 import { getPokemonByNameOrId, getTypeRelation } from '@/lib/api/poke-api/api';
-import { PokemonEntity, Type, TypeName } from '@/lib/api/poke-api/types';
+import { PokemonEntity, Type, TypeName } from '@/lib/api/poke-api/types/types';
 import { calculateTypeMatchups } from '@/services/pokemon';
 
 export default async function PokemonStatsPage({

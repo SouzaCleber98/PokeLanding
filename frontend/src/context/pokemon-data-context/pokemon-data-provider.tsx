@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import PokemonDataContext, {
   PokemonDataContextType,
 } from './pokemon-data-context';
-import { PokemonEntity } from '@/lib/api/poke-api/types';
+import { PokemonEntity } from '@/lib/api/poke-api/types/types';
 import generateGradient from '@/utils/generate-gradients';
 import { POKEMON_TYPES_CONSTANTS } from '@/constants';
 

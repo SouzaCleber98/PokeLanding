@@ -5,7 +5,7 @@ import {
   Generation,
   NamedApiResource,
   PokeApiResponse,
-} from '@/lib/api/poke-api/types';
+} from '@/lib/api/poke-api/types/types';
 
 type PokedexPageProps = {
   searchParams: Promise<{
