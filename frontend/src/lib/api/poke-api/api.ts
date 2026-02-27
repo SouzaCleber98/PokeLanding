@@ -1,11 +1,12 @@
 import { POKEMONSBYGENERATION } from '@/constants';
 import {
+  EvolutionData,
   PokeApiResponse,
   PokemonEntity,
   SpeciesInformation,
   Type,
   TypeName,
-} from './types';
+} from './types/types';
 
 const POKE_API_BASE_URL = 'https://pokeapi.co/api/v2';
 
@@ -95,6 +96,7 @@ export async function getPokemonSpeciesByNameOrId(
   return response.json();
 }
 
+// ─── Fetch Type Relation by Type Name or ID ───────────────────────────────────────────────
 export async function getTypeRelation(type: TypeName | number): Promise<Type> {
   const response = await fetch(
     `${POKE_API_BASE_URL}/type/${type}`,
@@ -104,6 +106,24 @@ export async function getTypeRelation(type: TypeName | number): Promise<Type> {
   if (!response.ok) {
     throw new Error(
       `Failed to fetch type relation details: status: ${response.status}, statusText: ${response.statusText}`
+    );
+  }
+
+  return response.json();
+}
+
+// ─── Fetch Evolution Chain by ID ───────────────────────────────────────────────
+export async function getEvolutionChainById(
+  id: number
+): Promise<EvolutionData> {
+  const response = await fetch(
+    `${POKE_API_BASE_URL}/evolution-chain/${id}`,
+    CACHE_CONFIG
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch evolution chain details: status: ${response.status}, statusText: ${response.statusText}`
     );
   }
 
