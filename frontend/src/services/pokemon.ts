@@ -1,7 +1,14 @@
-import { Type } from '@/lib/api/poke-api/types';
+import {
+  Chain,
+  EvolutionData,
+  NamedApiResource,
+  Type,
+} from '@/lib/api/poke-api/types/types';
+import { PokemonEvolution } from '@/types/types';
 
 type TypeEffectiveness = { typeName: string; multiplier: number };
 
+// This function calculates the type matchups for a given array of Pokemon types.
 export function calculateTypeMatchups(types: Type[]) {
   const weaknessesPerType = types.map((type) =>
     type.damage_relations.double_damage_from.map((relation) => relation.name)
@@ -124,3 +131,50 @@ const adjustDamageMatchups = (
 
   return allMatchups.filter((matchup) => matchup.multiplier !== 1);
 };
+
+export function mapEvolution(evolutionData: EvolutionData) {
+  let evolutionChain: PokemonEvolution[] = [];
+  let evolutionChainData = evolutionData.chain;
+
+  do {
+    let numberOfEvolutions = evolutionChainData.evolves_to.length;
+
+    evolutionChain.push({
+      species_name: evolutionChainData.species.name,
+      min_level: !evolutionChainData
+        ? 1
+        : evolutionChainData.evolution_details[0]?.min_level,
+      trigger_name: !evolutionChainData
+        ? null
+        : evolutionChainData.evolution_details[0]?.trigger.name,
+      item: !evolutionChainData
+        ? null
+        : evolutionChainData.evolution_details[0]?.item,
+    });
+
+    if (numberOfEvolutions > 1) {
+      for (let i = 1; i < numberOfEvolutions; i++) {
+        evolutionChain.push({
+          species_name: evolutionChainData.evolves_to[i].species.name,
+          min_level: !evolutionChainData.evolves_to[i]
+            ? 1
+            : evolutionChainData.evolves_to[i].evolution_details[0].min_level,
+          trigger_name: !evolutionChainData.evolves_to[i]
+            ? null
+            : evolutionChainData.evolves_to[i].evolution_details[0].trigger
+                .name,
+          item: !evolutionChainData.evolves_to[i]
+            ? null
+            : evolutionChainData.evolves_to[i].evolution_details[0].held_item,
+        });
+      }
+    }
+
+    evolutionChainData = evolutionChainData.evolves_to[0];
+  } while (
+    evolutionChainData != undefined &&
+    evolutionChainData.hasOwnProperty('evolves_to')
+  );
+
+  return evolutionChain;
+}
