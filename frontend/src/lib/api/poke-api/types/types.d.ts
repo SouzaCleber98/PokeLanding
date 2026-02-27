@@ -76,12 +76,7 @@ export type StatDetails = {
 
 export type PokemonType = {
   slot: number;
-  type: TypeDetails;
-};
-
-export type TypeDetails = {
-  name: TypeName;
-  url: string;
+  type: NamedApiResource;
 };
 
 // ─── Pokemon Sprites ─────────────────────────────────────────────────
@@ -226,15 +221,16 @@ type DreamWorld = {
   front_female: string | null;
 };
 
+// ─── Pokemon Species Information ─────────────────────────────────
 export type SpeciesInformation = {
   base_happiness: number;
   capture_rate: number;
   color: NamedApiResource;
   egg_groups: NamedApiResource[];
   evolution_chain: EvolutionChain;
-  evolves_from_species: null;
+  evolves_from_species: NamedApiResource | null;
   flavor_text_entries: FlavorTextEntry[];
-  form_descriptions: any[];
+  form_descriptions: Description[];
   forms_switchable: boolean;
   gender_rate: number;
   generation: NamedApiResource;
@@ -246,6 +242,11 @@ export type SpeciesInformation = {
   name: string;
   names: Name[];
   genera: Genus[];
+};
+
+export type Description = {
+  description: string;
+  language: NamedApiResource;
 };
 
 export type EvolutionChain = {
@@ -268,6 +269,7 @@ export type Name = {
   name: string;
 };
 
+// ─── Type Information ───────────────────────────────────────────────
 export type Type = {
   damage_relations: DamageRelations;
   pokemon: TypePokemon[];
@@ -285,6 +287,47 @@ export type DamageRelations = {
 export type TypePokemon = {
   pokemon: NamedApiResource;
   slot: number;
+};
+
+// ─── Evolution Chain Information ───────────────────────────────────────────────
+export type EvolutionData = {
+  chain: Chain;
+  id: number;
+};
+
+export type Chain = {
+  evolution_details: EvolutionDetail[];
+  evolves_to: Chain[];
+  is_baby: boolean;
+  species: NamedApiResource;
+};
+
+export type EvolutionDetail = {
+  base_form_id: NamedApiResource | null;
+  gender: integer | null;
+  held_item: NamedApiResource | null;
+  item: NamedApiResource | null;
+  known_move: NamedApiResource | null;
+  known_move_type: NamedApiResource | null;
+  location: NamedApiResource | null;
+  min_affection: integer | null;
+  min_beauty: integer | null;
+  min_damage_taken: integer | null;
+  min_happiness: integer | null;
+  min_level: number | null;
+  min_move_count: integer | null;
+  min_steps: integer | null;
+  needs_multiplayer: boolean;
+  needs_overworld_rain: boolean;
+  party_species: NamedApiResource | null;
+  party_type: NamedApiResource | null;
+  region_id: NamedApiResource | null;
+  relative_physical_stats: NamedApiResource | null;
+  time_of_day: string;
+  trade_species: NamedApiResource | null;
+  trigger: NamedApiResource;
+  turn_upside_down: boolean;
+  used_move: NamedApiResource | null;
 };
 
 // ─── Stat & Type Literals ────────────────────────────────────────────
