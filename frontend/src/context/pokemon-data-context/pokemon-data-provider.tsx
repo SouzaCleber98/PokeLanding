@@ -20,7 +20,9 @@ export default function PokemonDataProvider({
   pokemonData,
 }: PokemonDataProviderProps) {
   const colors = pokemonData.types.map(
-    ({ type: { name } }) => POKEMON_TYPES_CONSTANTS[name].color
+    ({ type: { name } }) =>
+      POKEMON_TYPES_CONSTANTS[name as keyof typeof POKEMON_TYPES_CONSTANTS]
+        .color
   );
 
   const gradientsColor = generateGradient(colors, gradientAngle);
