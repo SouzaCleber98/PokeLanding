@@ -47,12 +47,16 @@ export default async function PokemonEvolutionDisplay({
   console.log(mappedEvolutionHierarchy);
   return (
     <div className='flex flex-col justify-center items-center bg-gray-800/25 gap-2 p-3 rounded-4xl'>
-      <h3 className='font-bold text-white capitalize'>evolution </h3>
-      {mappedEvolutionHierarchy.length > 0 && (
+      <h3 className='font-bold text-white capitalize mb-2'>evolution </h3>
+      {mappedEvolutionHierarchy.length > 0 ? (
         <PokemonEvolutionContainer
           firstEvolution={baseEvolution!}
           evolutionList={mappedEvolutionHierarchy}
         />
+      ) : (
+        <p className='text-base text-center md:text-2xl text-white/60'>
+          Esse Pokemón não tem evolução
+        </p>
       )}
     </div>
   );
