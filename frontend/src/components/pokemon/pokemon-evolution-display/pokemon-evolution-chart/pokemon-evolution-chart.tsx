@@ -83,7 +83,7 @@ export default function PokemonEvolutionChart({
             </div>
 
             <div className='text-center mb-2'>
-              <span className='text-[10px] md:text-xs text-white/50'>
+              <span className='text-[10px] md:text-xs text-white/80'>
                 #{String(pokemonData.id).padStart(4, '0')}
               </span>
               <p className='capitalize text-sm md:text-base font-semibold text-white/90'>
