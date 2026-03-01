@@ -18,7 +18,7 @@ export default async function PokemonStatsPage({
     pokemonData = await getPokemonByNameOrId(id);
     damageRelation = await Promise.all(
       pokemonData?.types.map(
-        async (type) => await getTypeRelation(type.type.name)
+        async (type) => await getTypeRelation(type.type.name as TypeName)
       )
     );
   } catch (e) {
@@ -39,7 +39,7 @@ export default async function PokemonStatsPage({
 
   return (
     <section className='text-center'>
-      <div className='flex flex-col gap-2 bg-white/15 px-2 py-4 rounded-4xl'>
+      <div className='flex flex-col gap-2 bg-gray-800/25 px-2 py-4 rounded-4xl'>
         <h3 className='font-bold text-white capitalize'>base Stats</h3>
         {pokemonData.stats.map((stat) => (
           <div key={stat.stat.name}>
@@ -48,7 +48,7 @@ export default async function PokemonStatsPage({
         ))}
       </div>
 
-      <div className='flex flex-col gap-2 bg-white/15 px-2 py-4 rounded-4xl my-6 '>
+      <div className='flex flex-col gap-2 bg-gray-800/25 px-2 py-4 rounded-4xl my-6 '>
         <h3 className='font-bold text-white capitalize'>type Matchup</h3>
 
         {weaknesses.length > 0 && (
