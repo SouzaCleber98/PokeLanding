@@ -182,3 +182,32 @@ export function mapEvolution(evolutionData: EvolutionData) {
 
   return evolutionChain;
 }
+
+// This function generates a human-readable description of the evolution conditions for a given Pokemon evolution.
+export function generateEvolutionDescription(evolutionData: PokemonEvolution) {
+  const description: string[] = [];
+  if (evolutionData.min_level) {
+    description.push(`level ${evolutionData.min_level}`);
+  }
+  if (evolutionData.item) {
+    description.push(`use ${evolutionData.item.replaceAll('-', ' ')}`);
+  }
+  if (evolutionData.gender) {
+    description.push(evolutionData.gender === 1 ? 'female' : 'male');
+  }
+  if (evolutionData.time_of_day) {
+    description.push(
+      evolutionData.time_of_day === 'day' ? 'daytime' : 'nighttime'
+    );
+  }
+  if (evolutionData.min_happiness) {
+    description.push(
+      evolutionData.min_happiness >= 160 ? 'high Friendship' : 'Friendship'
+    );
+  }
+  if (evolutionData.trigger_name === 'trade') {
+    description.push('trade');
+  }
+
+  return description;
+}
