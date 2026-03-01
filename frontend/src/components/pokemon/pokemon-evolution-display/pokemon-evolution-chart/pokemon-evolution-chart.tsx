@@ -3,6 +3,7 @@
 import TypeIcon from '@/components/ui/type-icon';
 import { getPokemonByNameOrId } from '@/lib/api/poke-api/api';
 import { PokemonEntity, TypeName } from '@/lib/api/poke-api/types/types';
+import { generateEvolutionDescription } from '@/services/pokemon';
 import { PokemonEvolution } from '@/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,6 +24,7 @@ export default function PokemonEvolutionChart({
   const newEvolutionList = evolutionList.filter(
     (item) => item.species_name !== pokemon.species_name
   );
+  const evolutionDescriptions = generateEvolutionDescription(pokemon);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,9 +52,27 @@ export default function PokemonEvolutionChart({
       <div>
         <div
           id={pokemon.species_name}
-          className='flex w-fit h-fit max-w-30 max-h-50 md:max-w-100 md:max-h-100 flex-col flex-1 items-center justify-center gap-1 rounded-xl bg-white/10 border-white/20 p-3 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer min-w-[90px]'
+          className='flex w-fit h-fit max-w-20 max-h-60 md:max-w-100 md:max-h-100 flex-col flex-1 items-center justify-center gap-1 rounded-xl bg-white/10 border-white/20 p-3 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer min-w-[90px]'
         >
           <Link href={`/pokedex/${pokemonData?.id}`}>
+            {evolutionDescriptions.length > 0 && (
+              <p className='text-xs md:text-sm text-center'>
+                (
+                {evolutionDescriptions.map((item, index) =>
+                  index < evolutionDescriptions.length - 1 ? (
+                    <span key={index} className='capitalize'>
+                      {item},{' '}
+                    </span>
+                  ) : (
+                    <span key={index} className='capitalize'>
+                      {item}
+                    </span>
+                  )
+                )}
+                )
+              </p>
+            )}
+
             <div className='w-15 h-15 md:w-30  md:h-30 relative'>
               <Image
                 src={pokemonData?.sprites.front_default}
