@@ -6,24 +6,29 @@ import generateBgColor from '@/utils/generate-bg-color';
 
 type TypeIconProps = {
   type: keyof typeof POKEMON_TYPES_CONSTANTS;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
 };
 
 export default function TypeIcon({ type: type, size = 'md' }: TypeIconProps) {
   const badgeSizeClasses = {
+    xs: {
+      fontSize: 'text-[10px]',
+      className: 'px-3 py-1 min-w-15 max-w-15 max-h-5',
+      iconSize: 10,
+    },
     sm: {
       fontSize: 'text-xs',
-      className: 'px-5 py-2',
+      className: 'px-5 py-2 min-w-20 max-w-20 max-h-6',
       iconSize: 16,
     },
     md: {
       fontSize: 'text-md',
-      className: 'px-6 py-3',
+      className: 'px-6 py-3 min-w-25 max-w-25 max-h-8',
       iconSize: 20,
     },
     lg: {
       fontSize: 'text-lg',
-      className: 'px-7 py-3',
+      className: 'px-7 py-3 min-w-30 max-w-30 max-h-10',
       iconSize: 24,
     },
   };
@@ -34,7 +39,7 @@ export default function TypeIcon({ type: type, size = 'md' }: TypeIconProps) {
     <div
       key={type}
       className={cn(
-        'flex gap-1 w-fit min-w-20 h-fit rounded-full justify-center hover:scale-105 transition-all',
+        'flex gap-1 rounded-full justify-center items-center hover:scale-105 transition-all',
         badgeSizeClasses[size].className
       )}
       style={bgColor}
