@@ -5,6 +5,6 @@ export type PokemonEvolution = {
   min_level?: number | null;
   trigger_name?: string | null;
   item?: NamedApiResource | null;
-  envolve_from?: string;
-  envolves_to?: string[];
+  evolve_from?: string;
+  evolves_to?: string[];
 };
