@@ -1,9 +1,4 @@
-import {
-  Chain,
-  EvolutionData,
-  NamedApiResource,
-  Type,
-} from '@/lib/api/poke-api/types/types';
+import { EvolutionData, Type } from '@/lib/api/poke-api/types/types';
 import { PokemonEvolution } from '@/types/types';
 
 type TypeEffectiveness = { typeName: string; multiplier: number };
@@ -132,6 +127,7 @@ const adjustDamageMatchups = (
   return allMatchups.filter((matchup) => matchup.multiplier !== 1);
 };
 
+// This function maps the evolution data from the PokeAPI to a more usable format for the application.
 export function mapEvolution(evolutionData: EvolutionData) {
   let evolutionChain: PokemonEvolution[] = [];
   let evolutionChainData = evolutionData.chain;
@@ -140,32 +136,40 @@ export function mapEvolution(evolutionData: EvolutionData) {
     let numberOfEvolutions = evolutionChainData.evolves_to.length;
 
     evolutionChain.push({
-      species_name: evolutionChainData.species.name,
-      min_level: !evolutionChainData
-        ? 1
-        : evolutionChainData.evolution_details[0]?.min_level,
-      trigger_name: !evolutionChainData
-        ? null
-        : evolutionChainData.evolution_details[0]?.trigger.name,
-      item: !evolutionChainData
-        ? null
-        : evolutionChainData.evolution_details[0]?.item,
+      species_name: evolutionChainData?.species.name,
+      min_level: evolutionChainData?.evolution_details[0]?.min_level,
+      trigger_name: evolutionChainData?.evolution_details[0]?.trigger?.name,
+      item: evolutionChainData?.evolution_details[
+        evolutionChainData?.evolution_details.length - 1
+      ]?.item?.name,
+      time_of_day:
+        evolutionChainData?.evolution_details[0]?.time_of_day || null,
+      min_happiness:
+        evolutionChainData?.evolution_details[0]?.min_happiness || null,
+      gender: evolutionChainData?.evolution_details[0]?.gender || null,
     });
 
     if (numberOfEvolutions > 1) {
       for (let i = 1; i < numberOfEvolutions; i++) {
         evolutionChain.push({
-          species_name: evolutionChainData.evolves_to[i].species.name,
-          min_level: !evolutionChainData.evolves_to[i]
-            ? 1
-            : evolutionChainData.evolves_to[i].evolution_details[0].min_level,
-          trigger_name: !evolutionChainData.evolves_to[i]
-            ? null
-            : evolutionChainData.evolves_to[i].evolution_details[0].trigger
-                .name,
-          item: !evolutionChainData.evolves_to[i]
-            ? null
-            : evolutionChainData.evolves_to[i].evolution_details[0].held_item,
+          species_name: evolutionChainData.evolves_to[i]?.species.name,
+          min_level:
+            evolutionChainData.evolves_to[i]?.evolution_details[0]?.min_level,
+          trigger_name:
+            evolutionChainData.evolves_to[i]?.evolution_details[0]?.trigger
+              ?.name,
+          item: evolutionChainData.evolves_to[i]?.evolution_details[
+            evolutionChainData.evolves_to[i]?.evolution_details.length - 1
+          ]?.item?.name,
+          time_of_day:
+            evolutionChainData.evolves_to[i]?.evolution_details[0]
+              ?.time_of_day || null,
+          min_happiness:
+            evolutionChainData.evolves_to[i]?.evolution_details[0]
+              ?.min_happiness || null,
+          gender:
+            evolutionChainData.evolves_to[i]?.evolution_details[0]?.gender ||
+            null,
         });
       }
     }
