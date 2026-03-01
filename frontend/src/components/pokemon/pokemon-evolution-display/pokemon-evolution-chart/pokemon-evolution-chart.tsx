@@ -52,11 +52,11 @@ export default function PokemonEvolutionChart({
       <div>
         <div
           id={pokemon.species_name}
-          className='flex w-fit h-fit max-w-20 max-h-60 md:max-w-100 md:max-h-100 flex-col flex-1 items-center justify-center gap-1 rounded-xl bg-white/10 border-white/20 p-3 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer min-w-[90px]'
+          className='flex min-w-22 max-w-22 max-h-60 sm:max-w-30 sm:min-w-30 md:max-w-40 md:min-w-40 md:max-h-100 flex-col flex-1 items-center justify-center gap-1 rounded-xl bg-white/10 border-white/20 p-3 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer'
         >
           <Link href={`/pokedex/${pokemonData?.id}`}>
             {evolutionDescriptions.length > 0 && (
-              <p className='text-xs md:text-sm text-center'>
+              <p className='text-[9px] md:text-xs text-center text-white/80 font-medium tracking-wide'>
                 (
                 {evolutionDescriptions.map((item, index) =>
                   index < evolutionDescriptions.length - 1 ? (
@@ -73,19 +73,22 @@ export default function PokemonEvolutionChart({
               </p>
             )}
 
-            <div className='w-15 h-15 md:w-30  md:h-30 relative'>
+            <div className='w-15 h-15 md:w-30 md:h-30 relative'>
               <Image
                 src={pokemonData?.sprites.front_default}
                 alt={pokemonData?.name}
                 fill
+                className='object-contain'
               />
             </div>
 
             <div className='text-center mb-2'>
-              <span className='text-xs'>
+              <span className='text-[10px] md:text-xs text-white/50'>
                 #{String(pokemonData.id).padStart(4, '0')}
               </span>
-              <p className='capitalize '>{pokemon.species_name}</p>
+              <p className='capitalize text-sm md:text-base font-semibold text-white/90'>
+                {pokemon.species_name}
+              </p>
             </div>
 
             <div className='flex flex-col items-center gap-1'>
@@ -116,7 +119,7 @@ export default function PokemonEvolutionChart({
       </div>
 
       {pokemon.evolves_to && pokemon.evolves_to.length >= 2 ? (
-        <div className='flex flex-col gap-3 flex-5'>
+        <div className='flex flex-col gap-3 flex-5 sm:ml-20 md:ml-40'>
           {evolutionList.map(
             (item) =>
               item.evolve_from === pokemonData.name && (
