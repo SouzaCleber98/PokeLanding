@@ -130,7 +130,7 @@ const adjustDamageMatchups = (
 // This function maps the evolution data from the PokeAPI to a more usable format for the application.
 export function mapEvolution(evolutionData: EvolutionData) {
   let evolutionChain: PokemonEvolution[] = [];
-  let evolutionChainData = evolutionData.chain;
+  let evolutionChainData = evolutionData?.chain;
 
   do {
     let numberOfEvolutions = evolutionChainData.evolves_to.length;
@@ -139,9 +139,7 @@ export function mapEvolution(evolutionData: EvolutionData) {
       species_name: evolutionChainData?.species.name,
       min_level: evolutionChainData?.evolution_details[0]?.min_level,
       trigger_name: evolutionChainData?.evolution_details[0]?.trigger?.name,
-      item: evolutionChainData?.evolution_details[
-        evolutionChainData?.evolution_details.length - 1
-      ]?.item?.name,
+      item: evolutionChainData?.evolution_details[0]?.item?.name,
       time_of_day:
         evolutionChainData?.evolution_details[0]?.time_of_day || null,
       min_happiness:
@@ -158,9 +156,8 @@ export function mapEvolution(evolutionData: EvolutionData) {
           trigger_name:
             evolutionChainData.evolves_to[i]?.evolution_details[0]?.trigger
               ?.name,
-          item: evolutionChainData.evolves_to[i]?.evolution_details[
-            evolutionChainData.evolves_to[i]?.evolution_details.length - 1
-          ]?.item?.name,
+          item: evolutionChainData.evolves_to[i]?.evolution_details[0]?.item
+            ?.name,
           time_of_day:
             evolutionChainData.evolves_to[i]?.evolution_details[0]
               ?.time_of_day || null,
