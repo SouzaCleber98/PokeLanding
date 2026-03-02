@@ -8,9 +8,8 @@ type PokedexMainProps = {
 export default function PokedexMain({ children, mainColor }: PokedexMainProps) {
   return (
     <main>
-      <div className='relative border-x-2 border-red-800 bg-red-700'>
-        <div className='h-1.5 bg-red-800' />
-        <div className='absolute top-0 left-1/3 h-1.5 w-16 rounded-b bg-red-900/40' />
+      <div className='border-x-4 border-red-800 bg-red-700'>
+        <div className='h-2 bg-red-800' />
       </div>
 
       <div className='w-full h-full border-2 border-y-0 border-red-800 bg-red-600 px-5 pt-4 pb-6'>
