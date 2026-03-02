@@ -3,6 +3,7 @@ import PokedexFooter from '@/components/pokemon/pokedex-detail/pokedex-layout/po
 import PokedexHeader from '@/components/pokemon/pokedex-detail/pokedex-layout/pokedex-header';
 import PokedexMain from '@/components/pokemon/pokedex-detail/pokedex-layout/pokedex-main';
 import PokedexNavMenu from '@/components/pokemon/pokedex-detail/pokedex-nav-menu';
+import NavButton from '@/components/ui/nav-button';
 
 import {
   getPokemonByNameOrId,
@@ -45,7 +46,7 @@ export default async function PokedexLayout({
       <PokedexMain mainColor={speciesInfo.color.name}>
         <PokedexHero pokemonData={pokemonData} speciesData={speciesInfo} />
         <PokedexNavMenu id={pokemonData.id} />
-
+        <NavButton />
         {children}
       </PokedexMain>
       <PokedexFooter />
