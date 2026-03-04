@@ -31,7 +31,7 @@ export default function FilterPanel({
   );
 
   useEffect(() => {
-    setSearchParams('generation', generation);
+    setSearchParams(['generation', generation], ['currentPage', 1]);
   }, [generation]);
 
   return (
