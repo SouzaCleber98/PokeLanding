@@ -3,11 +3,12 @@
 import { Generation, NamedApiResource } from '@/lib/api/poke-api/types/types';
 import { Button } from './button';
 import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
+import useGenerateSearchParams from '@/hooks/useGenerateSearchParams';
 
 type FilterPanelProps = {
   generationList: NamedApiResource[];
-  generation: string;
-  setGeneration: (value: Generation) => void;
+  generationParam: Generation;
 };
 
 const filterButtonBase = cn(
@@ -22,9 +23,17 @@ const filterButtonActive = cn(
 
 export default function FilterPanel({
   generationList,
-  generation,
-  setGeneration,
+  generationParam,
 }: FilterPanelProps) {
+  const setSearchParams = useGenerateSearchParams();
+  const [generation, setGeneration] = useState<Generation>(
+    generationParam || 'all'
+  );
+
+  useEffect(() => {
+    setSearchParams('generation', generation);
+  }, [generation]);
+
   return (
     <nav className='flex flex-wrap justify-center gap-2 py-4 px-2'>
       <Button
