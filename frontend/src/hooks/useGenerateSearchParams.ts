@@ -5,13 +5,20 @@ export default function useGenerateSearchParams() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  return (searchTerm: string, value: string | number) => {
+  return (...searchTerm: [name: string, value: string | number][]) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    if (!value && value !== 0) {
-      params.delete(searchTerm);
-    } else {
-      params.set(searchTerm, String(value));
+    for (let [name, value] of searchTerm) {
+      if (!value && value !== 0) {
+        params.delete(name);
+      } else {
+        params.set(name, String(value));
+      }
+    }
+
+    if (!params.toString().length) {
+      router.push(pathname);
+      return;
     }
 
     router.push(`${pathname}?${params.toString()}`);
