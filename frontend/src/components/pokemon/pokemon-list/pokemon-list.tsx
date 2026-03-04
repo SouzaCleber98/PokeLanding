@@ -4,56 +4,31 @@ import { useEffect, useState } from 'react';
 import Pagination from '../../ui/pagination/pagination';
 import PokemonCardContainer from './pokemon-flip-card/pokemon-card-container';
 import { Generation, NamedApiResource } from '@/lib/api/poke-api/types/types';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import FilterPanel from '../../ui/filter-panel';
 import { POKEMONSBYGENERATION } from '@/constants';
 
 type PokemonListProps = {
   pokemonData: NamedApiResource[];
   generationList: NamedApiResource[];
+  search: string | undefined;
+  currentPageParam: number | undefined;
+  generationParam: Generation | undefined;
   limit: number;
 };
 
 export default function PokemonList({
   pokemonData,
   generationList,
+  currentPageParam = 1,
+  generationParam = 'all',
   limit,
 }: PokemonListProps) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
   const [pokemonList, setPokemonList] =
     useState<NamedApiResource[]>(pokemonData);
-  const [currentPage, setCurrentPage] = useState(
-    Number(searchParams.get('currentPage')) || 1
-  );
-  const [generation, setGeneration] = useState<Generation>(
-    (searchParams.get('generation') || 'all') as Generation
-  );
-  const urlGeneration = searchParams.get('generation') || 'all';
 
   useEffect(() => {
     setPokemonList(pokemonData);
   }, [pokemonData]);
-
-  useEffect(() => {
-    const path: string[] = [];
-
-    if (generation !== urlGeneration) {
-      setCurrentPage(1);
-    }
-
-    if (generation) {
-      path.push(`generation=${generation}`);
-    }
-
-    if (currentPage) {
-      path.push(`currentPage=${currentPage}`);
-    }
-
-    router.push(`${pathname}?${path.join('&')}`);
-  }, [currentPage, generation]);
 
   if (!pokemonList || !generationList) {
     return <div>Carregando...</div>;
@@ -63,8 +38,7 @@ export default function PokemonList({
     <div className='flex flex-col my-5'>
       <FilterPanel
         generationList={generationList}
-        generation={generation}
-        setGeneration={setGeneration}
+        generationParam={generationParam}
       />
 
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 place-items-center py-8 px-4'>
@@ -75,12 +49,11 @@ export default function PokemonList({
 
       <Pagination
         items={
-          POKEMONSBYGENERATION[generation].end -
-          POKEMONSBYGENERATION[generation].start
+          POKEMONSBYGENERATION[generationParam as Generation].end -
+          POKEMONSBYGENERATION[generationParam as Generation].start
         }
         itemsPerPageLimit={limit}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
+        currentPageParam={currentPageParam}
       />
     </div>
   );
