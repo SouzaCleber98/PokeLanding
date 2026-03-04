@@ -9,16 +9,16 @@ import {
 
 type PokedexPageProps = {
   searchParams: Promise<{
-    search: string;
-    generation: Generation;
-    currentPage: string;
+    search?: string;
+    generation?: Generation;
+    currentPage?: string;
   }>;
 };
 
 const limit = 5;
 
 export default async function PokedexPage({ searchParams }: PokedexPageProps) {
-  const { currentPage = '1', generation = 'all' } = await searchParams;
+  const { currentPage, generation, search } = await searchParams;
 
   let page = Number(currentPage);
   let pokemonList: NamedApiResource[] = [];
@@ -53,6 +53,9 @@ export default async function PokedexPage({ searchParams }: PokedexPageProps) {
         pokemonData={pokemonList}
         limit={limit}
         generationList={generationList}
+        currentPageParam={page}
+        generationParam={generation}
+        search={search}
       />
     </section>
   );
