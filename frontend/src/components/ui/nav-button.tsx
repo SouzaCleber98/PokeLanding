@@ -24,13 +24,21 @@ export default function NavButton() {
   };
 
   return (
-    <div className='flex w-full justify-between p-3 fixed top-1/2 right-1'>
-      <Button size='icon' className='rounded-full' onClick={handleLeftClick}>
+    <>
+      <Button
+        size='icon'
+        className='rounded-full fixed top-1/2 left-2'
+        onClick={handleLeftClick}
+      >
         <FontAwesomeIcon icon={faAngleLeft} />
       </Button>
-      <Button size='icon' className='rounded-full' onClick={handleRightClick}>
+      <Button
+        size='icon'
+        className='rounded-full fixed top-1/2 right-2'
+        onClick={handleRightClick}
+      >
         <FontAwesomeIcon icon={faAngleRight} />
       </Button>
-    </div>
+    </>
   );
 }
