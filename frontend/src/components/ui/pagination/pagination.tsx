@@ -10,7 +10,7 @@ import useGenerateSearchParams from '@/hooks/useGenerateSearchParams';
 type PaginationProps = {
   items: number;
   itemsPerPageLimit: number;
-  currentPageParam: number | undefined;
+  currentPageParam: number;
 };
 
 export default function Pagination({
@@ -19,7 +19,7 @@ export default function Pagination({
   itemsPerPageLimit,
 }: PaginationProps) {
   const setSearchParams = useGenerateSearchParams();
-  const [currentPage, setCurrentPage] = useState(currentPageParam || 1);
+  const [currentPage, setCurrentPage] = useState(currentPageParam);
   const totalPages = Math.ceil(items / itemsPerPageLimit);
   const pageNumbers: number[] = [];
 
@@ -28,8 +28,12 @@ export default function Pagination({
   let endPage = Math.min(totalPages, currentPage + 1);
 
   useEffect(() => {
-    setSearchParams('currentPage', currentPage);
-  }, [currentPage]);
+    setCurrentPage(currentPageParam);
+  }, [currentPageParam]);
+
+  useEffect(() => {
+    setSearchParams(['currentPage', currentPage]);
+  }, [currentPage, currentPageParam]);
 
   if (currentPage - halfItemsPerPage <= 0) {
     endPage = Math.min(
