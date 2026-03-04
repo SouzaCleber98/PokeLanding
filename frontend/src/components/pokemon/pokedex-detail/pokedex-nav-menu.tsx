@@ -18,11 +18,11 @@ export default function PokedexNavMenu({ id }: { id: number }) {
 
   return (
     <nav className=' flex my-8 justify-center'>
-      <div className='flex p-1 gap-1 md:p-2 md:gap-2 justify-center bg-black/45 rounded-full'>
+      <ul className='flex p-1 gap-1 md:p-2 md:gap-2 justify-center bg-black/45 rounded-full'>
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
-            <div key={item.label}>
+            <li key={item.label}>
               <Link href={item.href}>
                 <Button
                   variant={isActive ? 'default' : 'ghost'}
@@ -36,10 +36,10 @@ export default function PokedexNavMenu({ id }: { id: number }) {
                   {item.label}
                 </Button>
               </Link>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </nav>
   );
 }
