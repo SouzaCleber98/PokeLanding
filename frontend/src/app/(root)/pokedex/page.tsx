@@ -31,7 +31,10 @@ export default async function PokedexPage({ searchParams }: PokedexPageProps) {
 
     generationList = (await getGenerationList()).results;
 
-    if (generation && generation !== 'all') {
+    if (search) {
+      const data = await getPokemonList(POKEMONSBYGENERATION['all'].end);
+      pokemonList = data.results.filter((item) => item.name.includes(search));
+    } else if (generation && generation !== 'all') {
       const data = await getPokemonList(
         limit,
         POKEMONSBYGENERATION[generation].start + (page - 1) * limit,
@@ -55,7 +58,6 @@ export default async function PokedexPage({ searchParams }: PokedexPageProps) {
         generationList={generationList}
         currentPageParam={page}
         generationParam={generation}
-        search={search}
       />
     </section>
   );
