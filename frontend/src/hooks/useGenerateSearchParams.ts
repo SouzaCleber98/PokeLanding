@@ -1,11 +1,11 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-export default function useGenerateSearchParams() {
+export default function useGenerateSearchParams(targetUrl?: string) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  return (...searchTerm: [name: string, value: string | number][]) => {
+  return (...searchTerm: [name: string, value?: string | number][]) => {
     const params = new URLSearchParams(searchParams.toString());
 
     for (let [name, value] of searchTerm) {
@@ -17,10 +17,10 @@ export default function useGenerateSearchParams() {
     }
 
     if (!params.toString().length) {
-      router.push(pathname);
+      router.push(targetUrl || pathname);
       return;
     }
 
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${targetUrl || pathname}?${params.toString()}`);
   };
 }
