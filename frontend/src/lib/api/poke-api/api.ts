@@ -17,15 +17,8 @@ const CACHE_CONFIG = {
 // ─── Fetch Pokemon List ───────────────────────────────────────────────
 export async function getPokemonList(
   limit = 20,
-  offset = 0,
-  generation: keyof typeof POKEMONSBYGENERATION = 'all'
+  offset = 0
 ): Promise<PokeApiResponse> {
-  const maxOffset = POKEMONSBYGENERATION[generation].end - limit;
-
-  if (offset > maxOffset) {
-    limit = POKEMONSBYGENERATION[generation].end - offset;
-  }
-
   const response = await fetch(
     `${POKE_API_BASE_URL}/pokemon/?limit=${limit}&offset=${offset}`,
 
