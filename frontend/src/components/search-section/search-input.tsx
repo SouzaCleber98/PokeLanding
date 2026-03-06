@@ -13,15 +13,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 
 export default function SearchInput() {
-  const setSearchParams = useGenerateSearchParams();
+  const setSearchParams = useGenerateSearchParams('./pokedex');
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const search = formData.get('search')?.toString().trim().toLowerCase();
 
-    if (!search?.length) return;
-    setSearchParams('search', search);
+    setSearchParams(['search', search]);
   };
 
   return (
