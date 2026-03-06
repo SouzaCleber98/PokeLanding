@@ -1,16 +1,11 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Pagination from '../../ui/pagination/pagination';
 import PokemonCardContainer from './pokemon-flip-card/pokemon-card-container';
 import { Generation, NamedApiResource } from '@/lib/api/poke-api/types/types';
 import FilterPanel from '../../ui/filter-panel';
-import { POKEMONSBYGENERATION } from '@/constants';
 
 type PokemonListProps = {
   pokemonData: NamedApiResource[];
   generationList: NamedApiResource[];
-  search: string | undefined;
   currentPageParam: number | undefined;
   generationParam: Generation | undefined;
   limit: number;
@@ -23,16 +18,14 @@ export default function PokemonList({
   generationParam = 'all',
   limit,
 }: PokemonListProps) {
-  const [pokemonList, setPokemonList] =
-    useState<NamedApiResource[]>(pokemonData);
-
-  useEffect(() => {
-    setPokemonList(pokemonData);
-  }, [pokemonData]);
-
-  if (!pokemonList || !generationList) {
+  if (!pokemonData || !generationList) {
     return <div>Carregando...</div>;
   }
+
+  const showedList = pokemonData.slice(
+    currentPageParam * limit - limit,
+    currentPageParam * limit
+  );
 
   return (
     <div className='flex flex-col my-5'>
@@ -42,16 +35,13 @@ export default function PokemonList({
       />
 
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 place-items-center py-8 px-4'>
-        {pokemonList?.map((pokemon) => (
+        {showedList.map((pokemon) => (
           <PokemonCardContainer key={pokemon.name} pokemonName={pokemon.name} />
         ))}
       </div>
 
       <Pagination
-        items={
-          POKEMONSBYGENERATION[generationParam as Generation].end -
-          POKEMONSBYGENERATION[generationParam as Generation].start
-        }
+        items={pokemonData.length}
         itemsPerPageLimit={limit}
         currentPageParam={currentPageParam}
       />
