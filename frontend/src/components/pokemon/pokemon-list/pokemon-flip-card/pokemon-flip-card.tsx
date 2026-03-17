@@ -40,7 +40,7 @@ export default function PokemonFlipCard() {
             </CardDescription>
 
             <CardTitle className='text-white text-sm md:text-lg capitalize font-bold drop-shadow-md'>
-              {pokemonData.name}
+              {pokemonData.name.replaceAll('-', ' ')}
             </CardTitle>
           </CardHeader>
         )}
@@ -56,9 +56,14 @@ export default function PokemonFlipCard() {
           <Image
             src={cn(
               !isFlipped
-                ? pokemonData.sprites.other?.showdown.front_default!
-                : pokemonData.sprites.other?.showdown.back_default!
+                ? pokemonData.sprites.other?.showdown.front_default! ||
+                    pokemonData.sprites.front_default
+                : pokemonData.sprites.other?.showdown.back_default! ||
+                    pokemonData.sprites.back_default
             )}
+            onError={(e) => {
+              e.currentTarget.src = pokemonData.sprites.front_default;
+            }}
             alt={pokemonData.name}
             className='z-10 object-contain drop-shadow-md'
             width={60}
