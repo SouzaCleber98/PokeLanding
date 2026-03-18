@@ -3,7 +3,6 @@ import type {
   StatName,
   TypeName,
 } from '@/lib/api/poke-api/types/types';
-import { email } from 'zod';
 
 export const navigationLinks = [
   {
