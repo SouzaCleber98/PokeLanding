@@ -3,6 +3,7 @@ import type {
   StatName,
   TypeName,
 } from '@/lib/api/poke-api/types/types';
+import { email } from 'zod';
 
 export const navigationLinks = [
   {
@@ -181,5 +182,31 @@ export const POKEMON_TYPES_CONSTANTS: Record<
   unknown: {
     color: '#68A090',
     icon: '',
+  },
+};
+
+export const FORM_FIELDS: Record<
+  string,
+  { label: string; type: string; placeholder: string }
+> = {
+  email: {
+    label: 'E-mail',
+    type: 'email',
+    placeholder: 'Digite seu e-mail',
+  },
+  password: {
+    label: 'Senha',
+    type: 'password',
+    placeholder: 'Digite sua senha',
+  },
+  name: {
+    label: 'Nome',
+    type: 'text',
+    placeholder: 'Digite seu nome',
+  },
+  confirmPassword: {
+    label: 'Confirmar Senha',
+    type: 'password',
+    placeholder: 'Confirme sua senha',
   },
 };
