@@ -6,6 +6,10 @@ import type {
 
 export const navigationLinks = [
   {
+    href: '/',
+    label: 'Home',
+  },
+  {
     href: '/pokedex',
     label: 'Pokedex',
   },
