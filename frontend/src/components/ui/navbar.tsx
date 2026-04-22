@@ -9,9 +9,17 @@ import { Button } from '@/components/ui/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { navigationLinks } from '@/constants';
+import { useAuth } from '@/context/auth-context/auth-provider';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const { isAuthenticated } = useAuth();
+
+  const visibleLinks = isAuthenticated
+    ? navigationLinks.filter(
+        ({ href }) => href !== '/sign-in' && href !== '/sign-up'
+      )
+    : navigationLinks;
 
   useEffect(() => {
     const handleResize = () => {
@@ -63,7 +71,7 @@ export default function Navbar() {
               : 'hidden'
           )}
         >
-          {navigationLinks.map(({ href, label }) => (
+          {visibleLinks.map(({ href, label }) => (
             <li key={href}>
               <Link
                 href={href}
@@ -87,7 +95,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-/* <li id='user-info'>
-          <Link href='/user-info'></Link>
-        </li> */
