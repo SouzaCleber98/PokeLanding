@@ -202,7 +202,7 @@ export const FORM_FIELDS: Record<
     type: 'password',
     placeholder: 'Digite sua senha',
   },
-  name: {
+  username: {
     label: 'Nome',
     type: 'text',
     placeholder: 'Digite seu nome',
