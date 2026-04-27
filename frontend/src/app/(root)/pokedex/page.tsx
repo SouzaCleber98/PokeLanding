@@ -1,11 +1,7 @@
 import PokemonList from '@/components/pokemon/pokemon-list/pokemon-list';
 import { POKEMONSBYGENERATION } from '@/constants';
 import { getGenerationList, getPokemonList } from '@/lib/api/poke-api/api';
-import {
-  Generation,
-  NamedApiResource,
-  PokeApiResponse,
-} from '@/lib/api/poke-api/types/types';
+import { Generation, NamedApiResource } from '@/lib/api/poke-api/types/types';
 
 type PokedexPageProps = {
   searchParams: Promise<{
@@ -33,7 +29,15 @@ export default async function PokedexPage({ searchParams }: PokedexPageProps) {
 
     if (search) {
       const data = await getPokemonList(POKEMONSBYGENERATION['all'].end);
-      pokemonList = data.results.filter((item) => item.name.includes(search));
+
+      pokemonList = data.results.filter((item) => {
+        const isNumericSearch = /^\d+$/.test(search);
+
+        if (isNumericSearch) {
+          return item.url.split('/').at(-2)?.includes(search);
+        }
+        return item.name.includes(search);
+      });
     } else if (generation && generation !== 'all') {
       const data = await getPokemonList(
         POKEMONSBYGENERATION[generation].end -
