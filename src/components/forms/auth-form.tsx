@@ -5,12 +5,10 @@ import { useForm } from 'react-hook-form';
 import { Button } from '../ui/button';
 import { signInSchema } from '@/lib/schemas';
 import { signUpSchema } from '@/lib/schemas';
-import { z } from 'zod';
 import Link from 'next/link';
 import { FORM_FIELDS } from '@/constants';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/auth-context/auth-provider';
 
 type AuthFormValues = {
   username?: string;
@@ -21,12 +19,24 @@ type AuthFormValues = {
 
 type AuthFormProps = {
   type: 'SIGN_IN' | 'SIGN_UP';
-  onSuccess?: (data: AuthFormValues) => Promise<Response>;
+  onSuccessAction?: (data: any) => Promise<
+    | {
+        success: boolean;
+        error: string[];
+        status: number;
+        message: string;
+      }
+    | {
+        success: boolean;
+        status: number;
+        message: string;
+        error?: undefined;
+      }
+  >; //arumar tipo
 };
 
-export default function AuthForm({ type, onSuccess }: AuthFormProps) {
+export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
   const router = useRouter();
-  const { setSession } = useAuth();
 
   const schema = type === 'SIGN_IN' ? signInSchema : signUpSchema;
   const isSignIn = type === 'SIGN_IN';
@@ -41,54 +51,11 @@ export default function AuthForm({ type, onSuccess }: AuthFormProps) {
   });
 
   const onSubmit = async (data: AuthSchemaType) => {
-    if (!onSuccess) return;
+    if (!onSuccessAction) return;
 
     try {
-      const response = await onSuccess?.(data);
-      const payload = (await response.json().catch(() => ({}))) as {
-        message?: string;
-        token?: string;
-      };
-
-      if (!response.ok) {
-        throw new Error(
-          `Failed to submit form, ${payload.message ?? 'unknown error'}`
-        );
-      }
-
-      if (isSignIn) {
-        if (!payload.token) {
-          throw new Error(
-            'Authentication token was not returned by the server'
-          );
-        }
-
-        await setSession(payload.token);
-        router.push('/');
-        return;
-      }
-
-      const loginResponse = await fetch('http://localhost:4000/sessions', {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
-      });
-
-      const loginPayload = (await loginResponse.json().catch(() => ({}))) as {
-        message?: string;
-        token?: string;
-      };
-
-      if (!loginResponse.ok || !loginPayload.token) {
-        throw new Error(
-          `Failed to create authenticated session, ${loginPayload.message ?? 'unknown error'}`
-        );
-      }
-
-      await setSession(loginPayload.token);
+      const response = await onSuccessAction?.(data);
+      //arrumar comportamento
       router.push('/');
     } catch (e) {
       console.log(e);

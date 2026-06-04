@@ -48,7 +48,20 @@ export async function removeUserSession(cookies: ReadonlyRequestCookies) {
   cookies.delete(SESSION_COOKIE_NAME);
 }
 
-export async function getUserSessionById(sessionId: string) {
+export async function getUserFromSession(cookies: ReadonlyRequestCookies) {
+  try {
+    const sessionId = cookies.get(SESSION_COOKIE_NAME)?.value;
+
+    if (!sessionId) return null;
+
+    return await getUserSessionById(sessionId);
+  } catch (e) {
+    console.error('Error getting user from session:', e);
+    return null;
+  }
+}
+
+async function getUserSessionById(sessionId: string) {
   const rawData = await redis.get(`session:${sessionId}`);
 
   if (!rawData) return null;
@@ -59,12 +72,4 @@ export async function getUserSessionById(sessionId: string) {
   if (!success) return null;
 
   return data;
-}
-
-async function getUserFromSession(cookies: ReadonlyRequestCookies) {
-  const sessionId = cookies.get(SESSION_COOKIE_NAME)?.value;
-
-  if (!sessionId) return null;
-
-  return getUserSessionById(sessionId);
 }

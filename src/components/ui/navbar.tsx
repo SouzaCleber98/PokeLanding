@@ -9,13 +9,18 @@ import { Button } from '@/components/ui/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { navigationLinks } from '@/constants';
-import { useAuth } from '@/context/auth-context/auth-provider';
 
-export default function Navbar() {
+type NavbarProps = {
+  user: {
+    id: string;
+    username: string;
+  } | null;
+};
+
+export default function Navbar({ user }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const { isAuthenticated } = useAuth();
 
-  const visibleLinks = isAuthenticated
+  const visibleLinks = user
     ? navigationLinks.filter(
         ({ href }) => href !== '/sign-in' && href !== '/sign-up'
       )

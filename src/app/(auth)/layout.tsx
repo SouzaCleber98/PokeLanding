@@ -1,6 +1,17 @@
 import Header from '@/components/header/header';
+import { getUserFromSession } from '@/lib/auth/session';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default async function layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const isLoggedIn = await getUserFromSession(await cookies());
+
+  if (isLoggedIn) redirect('/');
+
   return (
     <main>
       <Header />
