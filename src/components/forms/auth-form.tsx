@@ -54,11 +54,19 @@ export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
     if (!onSuccessAction) return;
 
     try {
-      const response = await onSuccessAction?.(data);
-      //arrumar comportamento
+      const response = await onSuccessAction(data);
+
+      if (!response.success) {
+        response.error &&
+          console.error(`${response.error},status:${response.status}`);
+        console.log(`${response.message},status:${response.status}`); //TODO: mostrar modal
+        return;
+      }
+
+      console.log(`${response.message},status:${response.status}`); //TODO: mostrar modal
       router.push('/');
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
