@@ -5,20 +5,19 @@ import { Avatar, AvatarFallback } from '../ui/avatar';
 import LogoutButton from './logout-button';
 import { logOut } from '@/actions/auth';
 import { redirect } from 'next/navigation';
-import { getUserFromSession } from '@/lib/auth/session';
-import { cookies } from 'next/headers';
+import { getCurrentUser } from '@/lib/auth/utils/get-current-user';
+
+const handleLogout = async () => {
+  'use server';
+  await logOut();
+  redirect('/');
+};
 
 export default async function Header() {
-  const user = await getUserFromSession(await cookies());
+  const user = await getCurrentUser();
 
   const avatarLabel = user?.username || 'Poké';
   const avatarInitial = avatarLabel.trim().charAt(0).toUpperCase() || '?';
-
-  const handleLogout = async () => {
-    'use server';
-    await logOut();
-    redirect('/');
-  };
 
   return (
     <header className='flex sticky top-0 justify-between p-3 md:px-10 bg-yellow-300 shadow-sm border-b-2 border-b-yellow-400 z-1'>
@@ -37,7 +36,7 @@ export default async function Header() {
       </Link>
 
       <div className='flex items-center gap-3'>
-        {user && (
+        {user && ( //TODO: arrumar no mobile
           <div className='flex items-center gap-2 rounded-full border border-yellow-400/70 bg-white/55 px-2 py-1 shadow-sm'>
             <Avatar className='border border-white/80 shadow-sm'>
               <AvatarFallback className='bg-red-600 text-white font-bold'>
