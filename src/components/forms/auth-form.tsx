@@ -32,7 +32,7 @@ type AuthFormProps = {
         message: string;
         error?: undefined;
       }
-  >; //arumar tipo
+  >; //TODO: arumar tipo
 };
 
 export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
@@ -40,7 +40,7 @@ export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
 
   const schema = type === 'SIGN_IN' ? signInSchema : signUpSchema;
   const isSignIn = type === 'SIGN_IN';
-  type AuthSchemaType = AuthFormValues;
+  type AuthSchemaType = AuthFormValues; // TODO: arrumar tipo
 
   const {
     register,
@@ -70,6 +70,7 @@ export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
     }
   };
 
+  //TODO: trocar Object.keys por algo mais seguro, tipo um array com os campos
   return (
     <div className='py-5 px-3 border-zinc-300 border rounded-4xl  shadow-xl'>
       <form

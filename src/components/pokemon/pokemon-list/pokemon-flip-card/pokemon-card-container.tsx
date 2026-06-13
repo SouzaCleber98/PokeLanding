@@ -22,6 +22,7 @@ export default function PokemonCardContainer({
     fetchData();
   }, []);
 
+  //TODO: arrumar loading state, talvez com skeleton loader
   if (!pokemonData) {
     return <div>Carregando...</div>;
   }
