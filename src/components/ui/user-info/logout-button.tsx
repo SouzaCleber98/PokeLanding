@@ -1,22 +1,17 @@
 'use client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '../ui/button';
+import { Button } from '../button';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { handleLogout } from '@/actions/utils';
 
-type LogoutButtonProps = {
-  handleLogoutAction: () => Promise<void>;
-};
-
-export default function LogoutButton({
-  handleLogoutAction,
-}: LogoutButtonProps) {
+export default function LogoutButton() {
   return (
     <Button
       variant='ghost'
       size='icon'
       className='ml-1 h-7 w-7 text-gray-700 hover:bg-red-500 hover:text-white'
-      onClick={() => handleLogoutAction()}
+      onClick={() => handleLogout()}
       title='Deslogar'
     >
       <FontAwesomeIcon icon={faRightFromBracket} className='text-sm' />
