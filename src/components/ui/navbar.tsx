@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { navigationLinks } from '@/constants';
+import UserInfo from './user-info/user-info';
 
 type NavbarProps = {
   user: {
@@ -19,6 +20,9 @@ type NavbarProps = {
 
 export default function Navbar({ user }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+
+  const avatarLabel = user?.username || 'Poké';
+  const avatarInitial = avatarLabel.trim().charAt(0).toUpperCase() || '?';
 
   const visibleLinks = user
     ? navigationLinks.filter(
@@ -76,6 +80,15 @@ export default function Navbar({ user }: NavbarProps) {
               : 'hidden'
           )}
         >
+          {user && (
+            <li>
+              <UserInfo
+                avatarInitial={avatarInitial}
+                avatarLabel={avatarLabel}
+              />
+            </li>
+          )}
+
           {visibleLinks.map(({ href, label }) => (
             <li key={href}>
               <Link
