@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import AuthProvider from '@/context/auth-context/auth-provider';
 
 export const metadata: Metadata = {
   title: 'PokeLanding',
@@ -15,9 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body>
-        <AuthProvider>{children}</AuthProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
