@@ -1,8 +1,7 @@
-import Header from '@/components/header/header';
 import { getCurrentUser } from '@/lib/auth/utils/get-current-user';
 import { redirect } from 'next/navigation';
 
-export default async function layout({
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -12,11 +11,10 @@ export default async function layout({
   if (user) redirect('/');
 
   return (
-    <main>
-      <Header />
+    <>
       <section className='w-screen h-screen flex flex-col justify-center items-center'>
         {children}
       </section>
-    </main>
+    </>
   );
 }
