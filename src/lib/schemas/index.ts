@@ -16,3 +16,15 @@ export const signUpSchema = z
     error: 'Passwords do not match',
     path: ['confirmPassword'],
   });
+
+export const updateUserSchema = z.object({
+  username: z
+    .string()
+    .min(3, 'Name must be at least 3 characters long')
+    .optional(),
+  email: z.email().optional(),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters long')
+    .optional(),
+});
