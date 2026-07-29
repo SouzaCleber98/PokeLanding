@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 import z from 'zod';
 import redis from '@/lib/redis';
+import { updateUserSchema } from '../schemas';
 
 export const sessionSchema = z.object({
   id: z.string(),
@@ -72,4 +73,34 @@ async function getUserSessionById(sessionId: string) {
   if (!success) return null;
 
   return data;
+}
+
+export async function updateUserSession(
+  cookies: ReadonlyRequestCookies,
+  unsafeData: z.infer<typeof sessionSchema>
+) {
+  const sessionId = cookies.get(SESSION_COOKIE_NAME)?.value;
+
+  if (!sessionId) throw new Error('No session found');
+
+  const oldData = await redis.get(`session:${sessionId}`);
+
+  if (!oldData) throw new Error('No session found');
+
+  const { data, success } = updateUserSchema.safeParse(unsafeData);
+
+  if (!success) throw new Error('Invalid session data');
+  const parsedData = JSON.parse(oldData);
+
+  const updatedData = {
+    ...parsedData,
+    ...data,
+  };
+
+  await redis.set(
+    `session:${sessionId}`,
+    JSON.stringify(updatedData),
+    'EX',
+    SESSION_EXPIRATION_TIME / 1000
+  );
 }
