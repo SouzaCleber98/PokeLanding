@@ -88,10 +88,7 @@ export async function updateUserSession(
 
   if (!oldData) throw new Error('No session found');
 
-  const { data, success } = updateUserSchema.safeParse(unsafeData);
-
-  if (!success) throw new Error('Invalid session data');
-  const parsedData = JSON.parse(oldData);
+  const parsedData = updateUserSchema.parse(JSON.parse(oldData));
 
   const updatedData = {
     ...parsedData,
