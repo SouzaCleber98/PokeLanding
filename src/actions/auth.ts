@@ -110,6 +110,7 @@ export async function signUp(unsafeData: z.infer<typeof signUpSchema>) {
       select: {
         id: true,
         username: true,
+        email: true,
       },
     });
 
