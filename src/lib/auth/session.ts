@@ -78,7 +78,7 @@ async function getUserSessionById(sessionId: string) {
 
 export async function updateUserSession(
   cookies: ReadonlyRequestCookies,
-  unsafeData: z.infer<typeof sessionSchema>
+  data: z.infer<typeof updateUserSchema>
 ) {
   const sessionId = cookies.get(SESSION_COOKIE_NAME)?.value;
 
