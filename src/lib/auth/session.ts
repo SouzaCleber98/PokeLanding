@@ -7,6 +7,7 @@ import { updateUserSchema } from '../schemas';
 export const sessionSchema = z.object({
   id: z.string(),
   username: z.string(),
+  email: z.string(),
 });
 
 const SESSION_COOKIE_NAME = 'session';
