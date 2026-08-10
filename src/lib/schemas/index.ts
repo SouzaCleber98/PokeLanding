@@ -17,14 +17,32 @@ export const signUpSchema = z
     path: ['confirmPassword'],
   });
 
-export const updateUserSchema = z.object({
-  username: z
-    .string()
-    .min(3, 'Name must be at least 3 characters long')
-    .optional(),
-  email: z.email().optional(),
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters long')
-    .optional(),
-});
+export const updateUserSchema = z
+  .object({
+    username: z.preprocess(
+      (value) => (value === '' ? undefined : value),
+      z.string().min(3, 'Name must be at least 3 characters long').optional()
+    ),
+    email: z.preprocess(
+      (value) => (value === '' ? undefined : value),
+      z.email().optional()
+    ),
+    password: z.preprocess(
+      (value) => (value === '' ? undefined : value),
+      z
+        .string()
+        .min(8, 'Password must be at least 8 characters long')
+        .optional()
+    ),
+    confirmPassword: z.preprocess(
+      (value) => (value === '' ? undefined : value),
+      z
+        .string()
+        .min(8, 'Password must be at least 8 characters long')
+        .optional()
+    ),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    error: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
