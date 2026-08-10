@@ -11,7 +11,11 @@ export default function LogoutButton() {
       variant='ghost'
       size='icon'
       className='ml-1 h-7 w-7 text-gray-700 hover:bg-red-500 hover:text-white'
-      onClick={() => handleLogout()}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        handleLogout();
+      }}
       title='Deslogar'
     >
       <FontAwesomeIcon icon={faRightFromBracket} className='text-sm' />

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Avatar, AvatarFallback } from '../avatar';
 import LogoutButton from './logout-button';
 
@@ -6,12 +7,16 @@ type UserInfoProps = {
   avatarInitial: string;
 };
 
-export default function UserInfo({
+export default function UserAvatarInfo({
   avatarLabel,
   avatarInitial,
 }: UserInfoProps) {
   return (
-    <div className='flex items-center gap-2 rounded-full border border-yellow-400/70 bg-white/55 px-2 py-1 shadow-sm'>
+    <Link
+      className='flex items-center gap-2 rounded-full border border-yellow-400/70 bg-white/55 px-2 py-1 shadow-sm
+    '
+      href='/user'
+    >
       <Avatar className='border border-white/80 shadow-sm'>
         <AvatarFallback className='bg-red-600 text-white font-bold'>
           {avatarInitial}
@@ -24,6 +29,6 @@ export default function UserInfo({
       </div>
 
       <LogoutButton />
-    </div>
+    </Link>
   );
 }
