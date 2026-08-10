@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { navigationLinks } from '@/constants';
-import UserInfo from './user-info/user-info';
+import UserAvatarInfo from './user-avatar-info/user-avatar-info';
 
 type NavbarProps = {
   user: {
@@ -82,7 +82,7 @@ export default function Navbar({ user }: NavbarProps) {
         >
           {user && (
             <li>
-              <UserInfo
+              <UserAvatarInfo
                 avatarInitial={avatarInitial}
                 avatarLabel={avatarLabel}
               />
