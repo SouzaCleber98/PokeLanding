@@ -31,13 +31,16 @@ export async function createSession(
   if (!success) throw new Error('Invalid session data');
   const sessionId: string = crypto.randomUUID();
 
-  await redis.set(
-    `session:${sessionId}`,
-    JSON.stringify(data),
-    'EX',
-    SESSION_EXPIRATION_TIME / 1000
-  );
-
+  try {
+    await redis.set(
+      `session:${sessionId}`,
+      JSON.stringify(data),
+      'EX',
+      SESSION_EXPIRATION_TIME / 1000
+    );
+  } catch (e) {
+    throw new Error(`Failed to create session on Redis: ${e}`);
+  }
   await setCookies(cookies, sessionId);
 }
 
