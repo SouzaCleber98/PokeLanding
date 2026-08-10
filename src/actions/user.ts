@@ -6,6 +6,7 @@ import { getUserFromSession, updateUserSession } from '@/lib/auth/session';
 import { cookies } from 'next/headers';
 import prisma from '@/lib/prisma';
 import { generateSalt, hashPassword } from '@/lib/auth/password-hasher';
+import { refresh } from 'next/cache';
 
 export async function updateUser(unsafeData: z.infer<typeof updateUserSchema>) {
   const session = await getUserFromSession(await cookies());
@@ -52,6 +53,8 @@ export async function updateUser(unsafeData: z.infer<typeof updateUserSchema>) {
     });
 
     await updateUserSession(await cookies(), user);
+
+    refresh();
 
     return {
       success: true,
