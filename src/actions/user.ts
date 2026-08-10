@@ -55,7 +55,7 @@ export async function updateUser(unsafeData: z.infer<typeof updateUserSchema>) {
 
     return {
       success: true,
-      status: 201,
+      status: 200,
       message: 'User updated successfully',
     };
   } catch (e) {
