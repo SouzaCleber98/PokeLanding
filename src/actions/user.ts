@@ -4,14 +4,18 @@ import { z } from 'zod';
 import { updateUserSchema } from '@/lib/schemas';
 import { getUserFromSession, updateUserSession } from '@/lib/auth/session';
 import { cookies } from 'next/headers';
-import { unauthorized } from 'next/navigation';
 import prisma from '@/lib/prisma';
 import { generateSalt, hashPassword } from '@/lib/auth/password-hasher';
 
 export async function updateUser(unsafeData: z.infer<typeof updateUserSchema>) {
   const session = await getUserFromSession(await cookies());
 
-  if (!session) unauthorized();
+  if (!session)
+    return {
+      success: false,
+      status: 401,
+      message: 'Unauthorized',
+    };
 
   const { data, success, error } = updateUserSchema.safeParse(unsafeData);
 
