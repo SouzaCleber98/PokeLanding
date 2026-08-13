@@ -1,101 +1,142 @@
 # PokeLanding
 
-Projeto full stack com foco em experiencia Pokemon, dividido em frontend Next.js e backend Node.js/Express com autenticacao JWT e persistencia em SQLite.
+Aplicação web de Pokémon desenvolvida com Next.js 16, React 19 e TypeScript, com autenticação de usuários, sessões em Redis e integração com a PokeAPI para exibir dados, evoluções e matchups de tipos.
 
-## Visao Geral
+## Visão geral
 
-- Frontend: Next.js 16 + React 19 + TypeScript
-- Backend: Node.js + Express + Sequelize
-- Banco de dados: SQLite
-- Integracoes:
-  - PokeAPI (dados de Pokemon)
-  - API interna para autenticacao e usuario
+O projeto tem como foco uma experiência de catálogo e exploração de Pokémon, incluindo:
 
-## Estrutura do Repositorio
+- página inicial com destaque visual
+- listagem e navegação da Pokédex
+- detalhes de Pokémon
+- evolução e estatísticas
+- autenticação de usuários (cadastro e login)
+- área do usuário com dados pessoais
+- integração com PokeAPI para alimentar o conteúdo
+
+## Stack principal
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- Prisma ORM
+- PostgreSQL
+- Redis
+- PokeAPI
+
+## Funcionalidades
+
+- autenticação via server actions e cookies
+- sessão do usuário persistida no Redis
+- CRUD de usuário com Prisma
+- busca e catalogação de Pokémon
+- exibição de evoluções e descritivos por tipo
+- interface com componentes reutilizáveis e layout responsivo
+
+## Estrutura do projeto
 
 ```text
 pokeLanding/
-    backend/    # API REST (autenticacao, usuarios e contatos)
-    frontend/   # Aplicacao web (landing, pokedex, login e cadastro)
-    old-frontend/ # Versao antiga mantida para referencia
+├─ prisma/
+│  ├─ migrations/
+│  ├─ schema.prisma
+│  └─ seed.ts
+├─ public/
+│  └─ images/
+├─ src/
+│  ├─ actions/
+│  ├─ app/
+│  ├─ components/
+│  ├─ constants/
+│  ├─ context/
+│  ├─ hooks/
+│  ├─ lib/
+│  ├─ services/
+│  └─ utils/
+├─ .eslintrc / eslint.config.mjs
+├─ components.json
+├─ next.config.ts
+├─ package.json
+├─ prisma.config.ts
+├─ tsconfig.json
+└─ README.md
 ```
 
-## Pre-requisitos
+## Pré-requisitos
 
 - Node.js 20+
 - npm 10+
+- PostgreSQL em execução
+- Redis em execução
 
-## Como Rodar Localmente
+## Configuração do ambiente
 
-1. Instale as dependencias do backend:
-
-```bash
-cd backend
-npm install
-```
-
-2. Configure as variaveis de ambiente do backend:
-
-Windows (PowerShell):
-
-```powershell
-Copy-Item .env.example .env
-```
-
-macOS/Linux:
-
-```bash
-cp .env.example .env
-```
-
-Edite o arquivo `.env` e preencha:
+Crie um arquivo `.env` na pasta raiz do projeto e preencha com as variáveis do seu ambiente local:
 
 ```env
-PORT=4000
-JWT_SECRET=your_secret
-DATABASE_PATH=./src/database/database.sqlite
+DATABASE_URL="postgresql://SEU_USUARIO:SUA_SENHA@localhost:5432/NOME_DO_BANCO?schema=public"
+REDIS_URL="redis://localhost:6379"
 ```
 
-3. Rode as migrations do banco:
+> Ajuste os valores conforme a sua instalação local de PostgreSQL e Redis.
+
+## Como rodar localmente
+
+1. Abra o terminal na pasta do projeto e instale as dependências:
 
 ```bash
-npx sequelize-cli db:migrate
-```
-
-4. Inicie o backend:
-
-```bash
-npm run dev
-```
-
-5. Em outro terminal, instale e rode o frontend:
-
-```bash
-cd ../frontend
 npm install
+```
+
+1. Gere o cliente do Prisma:
+
+```bash
+npx prisma generate
+```
+
+1. Aplique as migrações no banco de dados:
+
+```bash
+npx prisma migrate dev
+```
+
+1. Opcionalmente, execute o seed para popular dados iniciais:
+
+```bash
+npx prisma db seed
+```
+
+1. Inicie a aplicação em modo de desenvolvimento:
+
+```bash
 npm run dev
 ```
 
-6. Acesse:
+1. Acesse a aplicação no navegador em:
 
-- Frontend: http://localhost:3000
-- Backend: http://localhost:4000
+```text
+http://localhost:3000
+```
 
-## Documentacao por Modulo
+## Scripts disponíveis
 
-- Backend: veja `backend/README.md`
-- Frontend: veja `frontend/README.md`
+No arquivo `package.json` encontram-se os seguintes comandos:
 
-## Scripts Principais
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+```
 
-Backend (`backend/package.json`):
+## Banco de dados e sessões
 
-- `npm run dev`: sobe servidor com nodemon
-- `npm start`: sobe servidor com node
+- Prisma conecta ao PostgreSQL via `DATABASE_URL`
+- sessões de autenticação são armazenadas no Redis via `REDIS_URL`
+- o modelo principal de usuário está em `prisma/schema.prisma`
 
-Frontend (`frontend/package.json`):
+## Observações
 
-- `npm run dev`: ambiente de desenvolvimento
-- `npm run build`: build de producao
-- `npm run start`: executa build
-- `npm run lint`: analise esttica com ESLint
+- a aplicação usa integração com a PokeAPI para obter informações dos Pokémon e cálculos de fraquezas/resistências
+- a autenticação está implementada em server actions do Next.js e utiliza cookies para manter a sessão
