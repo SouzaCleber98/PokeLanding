@@ -20,10 +20,7 @@ export default function UserInfoSection({
       {isEdit ? (
         <UserForm setState={setIsEdit} />
       ) : (
-        <>
-          <p>Username: {username}</p>
-          <p>Email: {email}</p>
-        </>
+        <UserDetails username={username} email={email} />
       )}
 
       {!isEdit && <Button onClick={() => setIsEdit(!isEdit)}>edit</Button>}
