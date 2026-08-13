@@ -23,7 +23,9 @@ export default function UserInfoSection({
         <UserDetails username={username} email={email} />
       )}
 
-      {!isEdit && <Button onClick={() => setIsEdit(!isEdit)}>edit</Button>}
+      {!isEdit && (
+        <Button onClick={() => setIsEdit(!isEdit)}>editar dados</Button>
+      )}
     </section>
   );
 }
