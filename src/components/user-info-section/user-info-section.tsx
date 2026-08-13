@@ -18,17 +18,28 @@ export default function UserInfoSection({
   const [isEdit, setIsEdit] = useState(false);
 
   return (
-    <section className='w-screen h-screen flex flex-col justify-center items-center'>
+    <section className='w-screen h-screen flex flex-col justify-center items-center my-20'>
       {isEdit ? (
         <UserForm setState={setIsEdit} />
       ) : (
         <UserDetails username={username} email={email} />
       )}
 
-      {!isEdit && (
-        <Button onClick={() => setIsEdit(!isEdit)}>editar dados</Button>
-      )}
-      <Button onClick={() => handleDelete()}>deletar dados</Button>
+      <div className='flex gap-3 mt-4'>
+        {!isEdit && (
+          <Button
+            variant='default'
+            className='bg-green-600'
+            onClick={() => setIsEdit(!isEdit)}
+          >
+            editar dados
+          </Button>
+        )}
+
+        <Button variant='destructive' onClick={() => handleDelete()}>
+          deletar dados
+        </Button>
+      </div>
     </section>
   );
 }
