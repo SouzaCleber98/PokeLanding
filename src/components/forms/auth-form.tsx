@@ -46,6 +46,7 @@ export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
+    setError,
   } = useForm<AuthSchemaType>({
     resolver: zodResolver(schema),
   });
@@ -57,6 +58,11 @@ export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
       const response = await onSuccessAction(data);
 
       if (!response.success) {
+        setError('email', {
+          type: 'server',
+          message: response.message,
+        });
+
         response.error &&
           console.error(`${response.error},status:${response.status}`);
         console.log(`${response.message},status:${response.status}`); //TODO: mostrar modal
