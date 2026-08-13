@@ -122,10 +122,21 @@ export default function UserForm({
           )}
         </div>
 
-        <Button disabled={isSubmitting} type='submit' className='bg-green-600'>
+        <Button
+          disabled={isSubmitting}
+          type='submit'
+          variant='default'
+          className='bg-green-600'
+        >
           editar
         </Button>
-        <Button className=''>cancelar</Button>
+        <Button
+          type='button'
+          variant='outline'
+          onClick={() => setState?.(false)}
+        >
+          cancelar
+        </Button>
       </form>
     </div>
   );
