@@ -2,7 +2,11 @@
 
 import { z } from 'zod';
 import { updateUserSchema } from '@/lib/schemas';
-import { getUserFromSession, updateUserSession } from '@/lib/auth/session';
+import {
+  getUserFromSession,
+  removeUserSession,
+  updateUserSession,
+} from '@/lib/auth/session';
 import { cookies } from 'next/headers';
 import prisma from '@/lib/prisma';
 import { generateSalt, hashPassword } from '@/lib/auth/password-hasher';
@@ -63,6 +67,7 @@ export async function updateUser(unsafeData: z.infer<typeof updateUserSchema>) {
     };
   } catch (e) {
     console.error(e);
+
     return {
       success: false,
       status: 500,
@@ -70,6 +75,37 @@ export async function updateUser(unsafeData: z.infer<typeof updateUserSchema>) {
     };
   }
 }
+
 export async function deleteUser() {
-  // TODO: Implement the deleteUser function to handle deleting a user from the database.
+  const session = await getUserFromSession(await cookies());
+
+  if (!session)
+    return {
+      success: false,
+      status: 401,
+      message: 'Unauthorized',
+    };
+
+  try {
+    await Promise.all([
+      prisma.user.delete({
+        where: { id: session.id },
+      }),
+      removeUserSession(await cookies()),
+    ]);
+
+    return {
+      success: true,
+      status: 200,
+      message: 'User deleted successfully',
+    };
+  } catch (e) {
+    console.error(e);
+
+    return {
+      success: false,
+      status: 500,
+      message: 'An error occurred while deleting the user',
+    };
+  }
 }
