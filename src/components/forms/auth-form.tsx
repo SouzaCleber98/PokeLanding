@@ -10,7 +10,7 @@ import { FORM_FIELDS } from '@/constants';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
-type AuthFormValues = {
+type AuthSchemaType = {
   username?: string;
   email: string;
   password: string;
@@ -40,7 +40,6 @@ export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
 
   const schema = type === 'SIGN_IN' ? signInSchema : signUpSchema;
   const isSignIn = type === 'SIGN_IN';
-  type AuthSchemaType = AuthFormValues; // TODO: arrumar tipo
 
   const {
     register,
