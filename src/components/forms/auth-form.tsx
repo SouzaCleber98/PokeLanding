@@ -49,6 +49,13 @@ export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
       const response = await onSuccessAction(data);
 
       if (!response.success) {
+        if (isSignIn) {
+          setError('password', {
+            type: 'server',
+            message: response.message,
+          });
+        }
+
         setError('email', {
           type: 'server',
           message: response.message,
