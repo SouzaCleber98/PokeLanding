@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { FORM_FIELDS } from '@/constants';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 type AuthSchemaType = {
   username?: string;
@@ -20,10 +21,10 @@ type AuthSchemaType = {
 type AuthFormProps = {
   type: 'SIGN_IN' | 'SIGN_UP';
   onSuccessAction?: (data: AuthSchemaType) => Promise<{
-        success: boolean;
+    success: boolean;
     error?: string[];
-        status: number;
-        message: string;
+    status: number;
+    message: string;
   }>; //TODO: arumar tipo
 };
 
@@ -46,6 +47,7 @@ export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
     if (!onSuccessAction) return;
 
     try {
+      const loadingToast = toast.loading('Aguarde...');
       const response = await onSuccessAction(data);
 
       if (!response.success) {
@@ -63,11 +65,15 @@ export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
 
         response.error &&
           console.error(`${response.error},status:${response.status}`);
-        console.log(`${response.message},status:${response.status}`); //TODO: mostrar modal
+        toast.error(isSignIn ? 'Falha ao entrar' : 'Falha ao criar conta', {
+          id: loadingToast,
+        });
         return;
       }
 
-      console.log(`${response.message},status:${response.status}`); //TODO: mostrar modal
+      toast.success(isSignIn ? 'Bem-vindo!' : 'Conta criada com sucesso!', {
+        id: loadingToast,
+      });
       router.push('/');
     } catch (e) {
       console.error(e);
