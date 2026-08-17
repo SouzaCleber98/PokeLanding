@@ -19,20 +19,12 @@ type AuthSchemaType = {
 
 type AuthFormProps = {
   type: 'SIGN_IN' | 'SIGN_UP';
-  onSuccessAction?: (data: any) => Promise<
-    | {
+  onSuccessAction?: (data: AuthSchemaType) => Promise<{
         success: boolean;
-        error: string[];
+    error?: string[];
         status: number;
         message: string;
-      }
-    | {
-        success: boolean;
-        status: number;
-        message: string;
-        error?: undefined;
-      }
-  >; //TODO: arumar tipo
+  }>; //TODO: arumar tipo
 };
 
 export default function AuthForm({ type, onSuccessAction }: AuthFormProps) {
