@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import UserForm from '../forms/user-form';
 import UserDetails from './user-details';
-import { handleDelete } from '@/actions/utils';
 
 type UserInfoSectionProps = {
   username: string;
@@ -35,10 +34,6 @@ export default function UserInfoSection({
             editar dados
           </Button>
         )}
-
-        <Button variant='destructive' onClick={() => handleDelete()}>
-          deletar dados
-        </Button>
       </div>
     </section>
   );
