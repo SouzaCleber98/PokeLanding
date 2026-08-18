@@ -7,6 +7,17 @@ import { updateUser } from '@/actions/user';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
+import { handleDelete } from '@/actions/utils';
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+  DialogFooter,
+} from '../ui/dialog';
 
 type AuthFormValues = z.infer<typeof updateUserSchema>;
 
@@ -122,21 +133,61 @@ export default function UserForm({
           )}
         </div>
 
-        <Button
-          disabled={isSubmitting}
-          type='submit'
-          variant='default'
-          className='bg-green-600'
-        >
-          editar
-        </Button>
-        <Button
-          type='button'
-          variant='outline'
-          onClick={() => setState?.(false)}
-        >
-          cancelar
-        </Button>
+        <div className='flex flex-col gap-2 sm:flex-row'>
+          <Button
+            disabled={isSubmitting}
+            type='submit'
+            variant='default'
+            className='bg-green-600 flex-1'
+          >
+            editar
+          </Button>
+
+          <Button
+            type='button'
+            variant='outline'
+            className='flex-1'
+            onClick={() => setState?.(false)}
+          >
+            cancelar
+          </Button>
+        </div>
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button type='button' variant='destructive'>
+              deletar dados
+            </Button>
+          </DialogTrigger>
+
+          <DialogContent className='sm:max-w-md'>
+            <DialogHeader>
+              <DialogTitle>Excluir conta?</DialogTitle>
+              <DialogDescription>
+                Esta ação não pode ser desfeita. Todos os seus dados serão
+                removidos permanentemente.
+              </DialogDescription>
+            </DialogHeader>
+
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type='button' variant='outline'>
+                  cancelar
+                </Button>
+              </DialogClose>
+
+              <DialogClose asChild>
+                <Button
+                  type='button'
+                  variant='destructive'
+                  onClick={handleDelete}
+                >
+                  confirmar exclusão
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </form>
     </div>
   );
