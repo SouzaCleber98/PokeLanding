@@ -2,6 +2,8 @@ import Pagination from '../../ui/pagination/pagination';
 import PokemonCardContainer from './pokemon-flip-card/pokemon-card-container';
 import { Generation, NamedApiResource } from '@/lib/api/poke-api/types/types';
 import FilterPanel from '../../ui/filter-panel';
+import { Suspense } from 'react';
+import CardSkeleton from './pokemon-flip-card/card-skeleton';
 
 type PokemonListProps = {
   pokemonData: NamedApiResource[];
@@ -18,10 +20,6 @@ export default function PokemonList({
   generationParam = 'all',
   limit,
 }: PokemonListProps) {
-  if (!pokemonData || !generationList) {
-    return <div>Carregando...</div>;
-  }
-
   const showedList = pokemonData.slice(
     currentPageParam * limit - limit,
     currentPageParam * limit
@@ -36,7 +34,9 @@ export default function PokemonList({
 
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 place-items-center py-8 px-4'>
         {showedList.map((pokemon) => (
-          <PokemonCardContainer key={pokemon.name} pokemonName={pokemon.name} />
+          <Suspense key={pokemon.name} fallback={<CardSkeleton />}>
+            <PokemonCardContainer pokemonName={pokemon.name} />
+          </Suspense>
         ))}
       </div>
 
